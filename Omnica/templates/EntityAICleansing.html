@@ -1,0 +1,1236 @@
+{% extends "MasterHeader.html" %} {% block content %}
+<script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+
+
+<title>Spectra - EntityAICleansing</title>
+<!-- Links -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+<link href="https://cdn.syncfusion.com/ej2/material.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+<link rel="stylesheet" href="../../static/CDN/scripts/colored-toasts.css" />
+
+<!-- SCRIPT -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"
+  integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://ej2.syncfusion.com/javascript/demos/grid/checkbox-selection/datasource.js"
+  type="text/javascript"></script>
+<link href="https://cdn.syncfusion.com/ej2/28.1.33/ej2-base/styles/material.css" rel="stylesheet">
+<link href="https://cdn.syncfusion.com/ej2/28.1.33/ej2-popups/styles/material.css" rel="stylesheet">
+<link href="https://cdn.syncfusion.com/ej2/28.1.33/ej2-navigations/styles/material.css" rel="stylesheet">
+
+
+<!--system js reference and configuration-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript" src="static/CDN/scripts/events-library.js"></script>
+
+
+<script src="https://cdn.syncfusion.com/ej2/28.1.33/dist/ej2.min.js" type="text/javascript"></script>
+<script src="https://cdn.syncfusion.com/ej2/syncfusion-helper.js" type="text/javascript"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script> -->
+
+<!-- HTML style tag -->
+<style>
+  /* #container {
+       margin-top: 30px;
+       padding: 30px;
+     } */
+  /* body {
+    overflow-y: hidden;
+  } */
+
+  #paymentStatus {
+    padding: 10px;
+    background-color: #e74d4d;
+    color: white;
+    border-radius: 5px;
+    margin: 10px auto;
+    text-align: center;
+    font-weight: bold;
+    max-width: 900px;
+    margin-top: 50px;
+  }
+
+  @font-face {
+    font-family: 'Default';
+    src:
+      url(data:application/x-font-ttf;charset=utf-8;base64,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) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  [class^="sf-icon-"],
+  [class*=" sf-icon-"] {
+    font-family: 'Default' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: inherit;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .sf-icon-filter:before {
+    content: "\e711";
+  }
+
+  .sf-icon-cart:before {
+    content: "\e710";
+  }
+
+  .sf-icon-transport:before {
+    content: "\e702";
+  }
+
+  .sf-icon-payment:before {
+    content: "\e706";
+  }
+
+  .sf-icon-success:before {
+    content: "\e715";
+  }
+
+  .stepper-section {
+    width: 100%;
+    margin: 0px auto;
+    min-width: 85px;
+    padding: 25px 0;
+  }
+
+  .card {
+    /* Base card styles */
+    border: 1px solid #ccc;
+    padding-top: 5px;
+    padding-bottom: -10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 10px;
+    margin-left: 0px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+  }
+
+  .hidden {
+    /* Class for hiding the card */
+    display: none;
+  }
+
+  .card-green {
+    /* Example of a modifier class */
+    /* border-color: rgb(37, 249, 66); */
+    background-color: #e0f2f7;
+    /* Light blue background */
+  }
+
+  .card-red {
+    /* Another modifier class */
+    border-color: red;
+    background-color: #ffe0e0;
+    /* light red background*/
+  }
+
+  /* .card-wide{
+     width: 50%;
+     margin: 20px auto; 
+ } */
+
+  .customtxt_withdraw {
+    top: 10px;
+    color: #e60000;
+    padding: 10px;
+
+  }
+
+  .custombg_withdraw {
+    position: relative;
+    height: 19px;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #ffd7cc;
+    width: fit-content;
+  }
+
+  .custombg_deposit {
+    position: relative;
+    height: 19px;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #ccffcc;
+    width: fit-content;
+  }
+
+  .customtxt_deposit {
+    top: 10px;
+    color: #00cc00;
+    padding: 10px;
+
+  }
+
+  .container {
+    padding: 2% 0;
+  }
+
+  #container {
+    position: relative;
+    height: 100%;
+  }
+
+  #footer {
+    position: fixed;
+    padding: 10px 10px 0px 10px;
+    bottom: 0;
+    width: 100%;
+    /* Height of the footer*/
+    height: 40px;
+    text-align: center;
+    /* background: grey; */
+  }
+
+  #grid-container {
+    height: calc(100% - 56px);
+    /* subtract height of FAB */
+  }
+
+  .e-checkbox-wrapper .e-frame.e-check,
+  .e-css.e-checkbox-wrapper .e-frame.e-check {
+    background-color: #2b0210;
+  }
+
+  .e-checkbox-wrapper .e-frame.e-check,
+  .e-css.e-checkbox-wrapper .e-frame.e-check:hover {
+    background-color: #2b0210;
+  }
+
+  #add-btn {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+  }
+
+  #navtabs .nav.nav-tabs {
+    --bs-nav-link-padding-x: 0;
+  }
+
+  #navtabs .nav-item {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  #navtabs .nav-item.active {
+    background-color: darkgrey;
+  }
+
+  #navtabs .nav-item.active .nav-link {
+    color: white !important;
+  }
+
+  #navtabs .nav-tabs .nav-link {
+    border: none;
+  }
+
+  #navtabs .nav-item.active .nav-link:hover {
+    border: none;
+  }
+
+  /* CSS styles for the modal content and form inputs */
+  .modal-content {
+    max-width: 800px;
+    /* adjust as needed */
+  }
+
+  #insertForm input[type="text"],
+  #insertForm select {
+    max-width: 80%;
+    /* adjust as needed */
+  }
+
+  .input_field {
+    width: 300px;
+
+  }
+
+  .modal-dialog {
+    max-width: 800px;
+    /* adjust as needed */
+    margin: 0 auto;
+    /* centers the modal horizontally */
+  }
+
+  #navtabs {
+    /* add a clearfix to the container to clear floats */
+    overflow: auto;
+  }
+
+  .right-btn {
+    float: right !important;
+    position: relative;
+    margin-left: 10px;
+  }
+
+  input.btn {
+    float: right !important;
+    position: relative;
+    margin-left: 10px;
+  }
+
+  #navtabs button.btn {
+    float: right;
+    border: 2px solid black;
+  }
+
+  .form-group label,
+  legend {
+    margin: 5px !important;
+    font-weight: bold;
+  }
+
+  .form-group {
+    margin: 10px !important;
+  }
+
+  .form-group input[type="radio"],
+  .form-group input[type="checkbox"] {
+    font-weight: normal;
+  }
+
+  #insertForm input[type="text"],
+  #insertForm select {
+    max-width: 80%;
+    /* adjust as needed */
+  }
+
+  .min-wide-button {
+    min-width: 300px;
+    /* Minimum width */
+    padding-left: 1rem;
+    /* Adjust padding if needed */
+    padding-right: 1rem;
+  }
+
+</style>
+
+
+
+<!-- HTML body tag  -->
+
+<body>
+
+  <!-- <div class="top-message-bar">
+    <span class="message-text">
+        <div>
+            <b>Data-at-Rest Scanning:</b>
+            <span class="margin-left:20px;">Scanning stored data to identify sensitive information</span>
+        </div>
+        <div>
+            <b>Deep Content Inspection:</b>
+            <span class="margin-left:20px;">This refers to the detailed analysis of data content to identify sensitive information based on patterns, keywords, or other criteria</span>
+        </div>
+    </span>
+    <span class="close-icon" onclick="closeMessageBar()">&#x2715;</span>
+</div> -->
+
+<div class="row">
+  <div class="col-md-11"><ul id="breadcrumb"></ul></div>
+  <div class="col-md-1"><i class="bi bi-info-circle" style="float: right;
+    margin-right: 20px;
+    margin-top: 10px;
+    font-size: x-large;
+    color: deepskyblue;cursor: pointer;" onclick="loadArchitectureModal('AutoAgentPattern.jpg','Autogen Agentic Framework Multi Agent Group Chat')"></i></div>
+</div>
+
+
+  <!-- <header id="main-header">
+    <div class="logo">Spectra - AI Data Cleansing</div>
+    <nav>
+      <ul style="margin-bottom: 0rem;margin-top: 3px;">
+        
+        <li><a href="/">Home</a></li>
+        <li><a href="/">Contact us</a></li> 
+        <li><button class="btn btn-default btn-sm btn-danger" style="margin-top: -8px;"><a href="/AgentOrchestration">Agents Orchestration</a></button></li>
+      </ul>
+    </nav>
+  </header> -->
+
+  <!-- GRID opening view -->
+  
+  <div class="container" id="container" style="margin-top: -25px;">
+
+    <div id="myCard2" class="card  " style="display:none;">
+      <p id="cardText2"></p>
+    </div>
+    <div>
+      <button id="scheduleview">Raw Data</button>
+      <button id="gridview">Cleansed Data</button>
+
+
+      <div id="RawGrid"></div>
+      <!-- <div id="Grid" style="display: none;"></div> -->
+      <div id="Grid" style="display: none;">
+        <h4>Please Trigger Cleanse Functionality</h4>
+      </div>
+      <br />
+      <div>
+        <button type="button" id="applyTemplateButton" class="btn btn-primary min-wide-button">
+          Identify Data Issues
+        </button>
+        <button type="button" id="cleanseButton" class="btn btn-primary min-wide-button">Autonomous Cleanse </button>
+        <!-- <button type="button" onclick="window.top.location.href='/MasterHeader#TasksScheduler'" class="btn btn-primary">
+       Go To Scheduler
+     </button> -->
+
+      </div>
+      <div id="myCard1" class="card hidden ">
+        <p id="cardText1"></p>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+  <!-- Outer SCRIPT's Link -->
+  <script type="text/javascript" src="../CDN/jsonform/deps/jquery.min.js"></script>
+  <script type="text/javascript" src="../CDN/jsonform/deps/underscore.js"></script>
+  <script type="text/javascript" src="../CDN/jsonform/deps/opt/jsv.js"></script>
+  <script type="text/javascript" src="../CDN/jsonform/lib/jsonform.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <!-- <script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js" type="text/javascript"></script> -->
+  <script type="text/javascript" src="../CDN/scripts/jquery.json-editor.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuidv4.min.js"></script>
+
+
+  <script type="text/x-template" id="customSizeTemplate">
+     ${if(Size =="S" ||Size =="M"||Size =="L")}
+     <div class="custombg_deposit">
+         <span class="customtxt_deposit">${Size}</span>
+     </div> ${else}
+     <div class="custombg_withdraw">
+       <span class="customtxt_withdraw">${Size}</span>
+     ${/if}
+ </script>
+  <script type="text/x-template" id="customAgeTemplate">
+   ${if(Age < 100)}
+   <div class="custombg_deposit">
+       <span class="customtxt_deposit">${Age}</span>
+   </div> ${else}
+   <div class="custombg_withdraw">
+     <span class="customtxt_withdraw">${Age}</span>
+   ${/if}
+ </script>
+  <script type="text/x-template" id="customAmountTemplate">
+   ${if(PurchaseAmountInUSD< 101)}
+   <div class="custombg_deposit">
+       <span class="customtxt_deposit">${PurchaseAmountInUSD}</span>
+   </div> ${else}
+   <div class="custombg_withdraw">
+     <span class="customtxt_withdraw">${PurchaseAmountInUSD}</span>
+   ${/if}
+ </script>
+  <script type="text/x-template" id="customRatingTemplate">
+   ${if(ReviewRating <=10)}
+   <div class="custombg_deposit">
+       <span class="customtxt_deposit">${ReviewRating}</span>
+   </div> ${else}
+   <div class="custombg_withdraw">
+     <span class="customtxt_withdraw">${ReviewRating}</span>
+   ${/if}
+ </script>
+  <script type="text/x-template" id="customPrevPurchaseTemplate">
+   ${if((PreviousPurchases< 101))}
+     <div class="custombg_deposit">
+       <span class="customtxt_deposit">${PreviousPurchases}</span>
+     </div>
+   ${else}  
+     <div class="custombg_withdraw">
+       <span class="customtxt_withdraw">${PreviousPurchases}</span>
+     </div>
+   ${/if}
+ </script>
+  <script type="text/x-template" id="customColorTemplate">
+   ${if(/^[a-zA-Z]/.test(Color))}
+   <div class="custombg_deposit">
+       <span class="customtxt_deposit">${Color}</span>
+   </div> ${else}
+   <div class="custombg_withdraw">
+     <span class="customtxt_withdraw">${Color}</span>
+   ${/if}
+ </script>
+ <!-- <script type="text/x-template" id="customLocationTemplate">
+  ${if(/^[a-zA-Z0-9]*$/.test(Location))}
+    <div class="custombg_deposit">
+      <span class="customtxt_deposit">${Location}</span>
+    </div>
+  ${else}
+    <div class="custombg_withdraw">
+      <span class="customtxt_withdraw">${Location}</span>
+    </div>
+  ${/if}
+</script> -->
+<script type="text/x-template" id="customLocationTemplate">
+  ${if(/[^a-zA-Z0-9_]/.test(Location))}
+    <div class="custombg_withdraw">  
+      <span class="customtxt_withdraw">${Location}</span>
+    </div>
+  ${else}
+    <div class="custombg_deposit"> 
+      <span class="customtxt_deposit">${Location}</span>
+    </div>
+  ${/if}
+</script>
+
+<!-- <script type="text/x-template" id="customPhoneTemplate">
+  ${if(/^[0-9]/.test(PhoneNumber))}
+    <div class="custombg_withdraw">
+      <span class="customtxt_withdraw">${PhoneNumber}</span>
+    </div>
+  ${else}
+    <div class="custombg_deposit">
+      <span class="customtxt_deposit">${PhoneNumber}</span>
+    </div>
+  ${/if}
+</script> -->
+
+<script type="text/x-template" id="customPhoneTemplate">
+  ${if( PhoneNumber > 0)}
+  <div class="custombg_withdraw">
+    <span class="customtxt_withdraw">${PhoneNumber}</span>
+  </div>
+  ${else}
+    
+    <div class="custombg_deposit">
+      <span class="customtxt_deposit">${PhoneNumber}</span>
+    </div>
+  ${/if}
+</script>
+
+<script type="text/x-template" id="customNationalTemplate">
+  ${if(!FinlandNationalIdNumber.includes("-"))}
+    <div class="custombg_deposit">
+      <span class="customtxt_deposit">${FinlandNationalIdNumber}</span>
+    </div>
+  ${else}
+    <div class="custombg_withdraw">
+      <span class="customtxt_withdraw">${FinlandNationalIdNumber}</span>
+    </div>
+  ${/if}
+</script>
+
+
+  <script type="text/javascript">
+ ej.base.enableRipple(true);
+    //Breadcrumb items definition
+    var items = [
+      {
+        iconCss: 'e-icons e-home',
+        url: "/",
+      },
+      {
+        id: 'breadcrumb_spectra',
+        text: "Spectra",
+        url: "/",
+
+      },
+      {
+        id: 'breadcrumb_my_entities',
+        text: "My Entities",
+        url: "/EntitiesList",
+      },
+      {
+        id: 'breadcrumb_my_entity_actions',
+        text: "EntityAICleansing",
+        url: "/EntityAICleansing",
+      },
+      {
+        id: 'breadcrumb_file_name',
+        text: "csv",
+        // url: "/MasterHeader#TasksScheduler",
+      },
+      // {
+      //   id: 'breadcrumb_Telemetry',
+      //   text: "Telemetry",
+      //   url: "/MasterHeader#TaskTelemetry",
+      // }
+    ];
+
+    new ej.navigations.Breadcrumb({
+      items: items,
+      enableNavigation: true
+    }, '#breadcrumb');
+
+
+    // $("#navheadertext")[0].innerText = "Spectra - Ticket AI Cleansing"
+    const socket = io(); // Connect to the server
+    socket.on('message', (msg) => {
+      // const messageDiv = document.createElement('div');
+      // messageDiv.textContent = msg;
+      // document.body.appendChild(messageDiv);
+      // alert(msg);
+      console.log("socketIO", msg)
+    });
+
+    socket.on('mainmessage', (msg) => {
+      // const messageDiv = document.createElement('div');
+      // messageDiv.textContent = msg;
+      // document.body.appendChild(messageDiv);
+      // alert(msg);
+      console.log("socketIO", msg)
+    });
+
+    const urlParams = new URLSearchParams(window.location.search);
+            var userName = "slope.expedition@gmail.com";
+            // var selectedMultiApp = "";
+            // if (urlParams.has('app')) {
+            //     selectedMultiApp = urlParams.get('app');
+            // }
+            // else {
+            //     selectedMultiApp = "Spectra";
+            // }
+            // if (selectedMultiApp == "Spectra") {
+            //     $("#navheadertext")[0].innerText = "Spectra - DDR AI Cleansing";
+            //     let appTextEle = document.querySelectorAll(".appText");
+            //     appTextEle.forEach(el => {
+            //         el.innerText = "Tickets";
+            //     })
+            // }
+            // else if (selectedMultiApp == "Sentinel") {
+            //     $("#navheadertext")[0].innerText = "Spectra - DDR AI Cleansing";
+            //     let appTextEle = document.querySelectorAll(".appText");
+            //     appTextEle.forEach(el => {
+            //         el.innerText = "Entities";
+            //     })
+            // }
+            // else if (selectedMultiApp == "Panacea") {
+            //     $("#navheadertext")[0].innerText = "Spectra - DDR AI Cleansing";
+            //     let appTextEle = document.querySelectorAll(".appText");
+            //     appTextEle.forEach(el => {
+            //         el.innerText = "Patients";
+            //     })
+            // }
+
+    var gridView = new ej.buttons.Button();
+    gridView.appendTo('#gridview');
+    var scheduleView = new ej.buttons.Button();
+    scheduleView.appendTo('#scheduleview');
+
+    const scheduleContainer = document.getElementById("RawGrid");
+    const gridContainer = document.getElementById("Grid");
+    const showScheduleButton = document.getElementById("scheduleview");
+    const showGridButton = document.getElementById("gridview");
+
+    var myCard2 = document.getElementById("myCard2");
+    var cardText2 = document.getElementById("cardText2");
+    document.getElementById("breadcrumb_file_name").innerText ="Patients_Data_RAW.csv";
+    cardText2.textContent = "Patients_Data_RAW.csv";
+    // myCard2.classList.add('card-red');
+
+    showScheduleButton.addEventListener("click", function () {
+      myCard2.classList.remove('hidden');
+      // myCard2.classList.add('card-red');
+      document.getElementById("breadcrumb_file_name").innerText ="Patients_Data_RAW.csv";
+      cardText2.textContent = "Patients_Data_RAW.csv";
+
+      // Show Schedule and hide Grid
+      scheduleContainer.style.display = "block";
+      gridContainer.style.display = "none";
+    });
+    showGridButton.style.display = "none"
+    showGridButton.addEventListener("click", function () {
+      myCard2.classList.remove('hidden');
+      // myCard2.classList.add('card-green');
+      document.getElementById("breadcrumb_file_name").innerText ="Patients_Data_CLEANSED.csv";
+      cardText2.textContent = "Patients_Data_CLEANSED.csv";
+      insertTelemetry(EVENT_SOURCE_SPECTRA, ENTITY_AI_CLEANSING_LOAD_CLEANSED_GRID, "Cleansed Grid Loaded successfully", JSON.stringify({ "Count": "hopping_Survey_CLEANSED.csv"  }));
+
+      // Show Grid and hide Schedule
+      scheduleContainer.style.display = "none";
+      gridContainer.style.display = "block";
+    });
+
+
+
+
+    // gridData as a var declared 
+    var gridData = [];
+
+
+    var grid = ""
+    var RawGrid = ""
+    // const currentUser = localStorage.getItem("UserName");
+  
+    // Grid script
+    document.addEventListener("DOMContentLoaded", _ => {
+
+      // loadCSV("../Common/MultiLang.csv", function (data) {
+      //   var jsonTranslations = csvJSON(data);
+      //   translations = JSON.parse(jsonTranslations);
+      //   console.log(translations)
+      //   changeLanguage(translations);
+      //   changeFontSize(selectedFont);
+      // });
+
+      var CleansedJson;
+      var RawJson;
+
+      // // Assuming you have a separate function for loading and parsing CSV
+      // function loadCSV(url, callback) {
+      //   var xhttp = new XMLHttpRequest();
+      //   xhttp.onreadystatechange = function () {
+      //     if (this.readyState == 4 && this.status == 200) {
+      //       callback(this.responseText);
+      //     }
+      //   };
+      //   xhttp.open("GET", url, true);
+      //   xhttp.send();
+      // }
+
+      function loadCSV(url, callback) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            callback(this.responseText);
+          }
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+      }
+
+      // function csvJSON(csv) {
+      //   var lines = csv.split("\n");
+      //   var result = [];
+      //   var headers = lines[0].split(",");
+
+      //   for (var i = 1; i < lines.length; i++) {
+      //     var obj = {};
+      //     var currentline = lines[i].split(",");
+
+      //     for (var j = 0; j < headers.length; j++) {
+      //       var value = currentline[j];
+      //       try {
+      //         value = parseFloat(value);
+      //         if (isNaN(value)) {
+      //           value = parseInt(value);
+      //           if (isNaN(value)) {
+      //             value = currentline[j]; // Revert to string if both fail
+      //           }
+      //         }
+      //       } catch (error) {
+      //         console.warn("Error parsing value:", value, error);
+      //       }
+
+      //       obj[headers[j]] = value;
+      //     }
+      //     result.push(obj);
+      //   }
+      //   return result;
+      // }
+
+      function csvJSON(csv) {
+    var lines = csv.split("\n");
+    var result = [];
+    var headers = lines[0].split(",");
+
+    for (var i = 1; i < lines.length; i++) {
+        var obj = {};
+        var currentline = lines[i].split(",");
+
+        for (var j = 0; j < headers.length; j++) {
+            var value = currentline[j];
+
+            // Check if the value contains any non-numeric characters (excluding decimal points)
+            if (/[^0-9.-]/.test(value)) {
+                // If it does, treat it as a string
+                obj[headers[j]] = value;
+            } else {
+                // Otherwise, try to parse it as a number
+                try {
+                    value = parseFloat(value);
+                    if (isNaN(value)) {
+                        value = parseInt(value);
+                        if (isNaN(value)) {
+                            value = currentline[j]; // Revert to string if both fail
+                        }
+                    }
+                    obj[headers[j]] = value;
+                } catch (error) {
+                    console.warn("Error parsing value:", value, error);
+                    obj[headers[j]] = currentline[j] //if error, revert to string
+                }
+            }
+        }
+        result.push(obj);
+    }
+    return result;
+}
+
+
+
+      loadCSV("static/DataFiles/Shopping_Survey_Raw.csv", function (data) {
+        // Define the list of values to highlight
+        var highlightValues = ["Medium", "Large", "Red", "Blue", "Mdm"];
+
+        RawJson = csvJSON(data);
+        // RawJson = JSON.parse(RawJson);
+
+        RawJson = Object.values(RawJson).filter(obj => Object.keys(obj).length > 0);
+
+        console.log(RawJson)
+        isTemplateApplied = false
+        originalColumns = [
+          //  { type: 'checkbox',width: 50 },
+          { field: 'Customer ID', headerText: 'ID', width: 70, allowEditing: false, allowFiltering: false },
+          { field: 'Age', headerText: "Age", width: 100, allowEditing: false, allowFiltering: false },
+          { field: 'Gender', headerText: "Gender", width: 100, allowEditing: false, allowFiltering: false },
+          { field: 'PhoneNumber', headerText: "PhoneNumber", width: 150, allowEditing: false, allowFiltering: false},
+          { field: 'FinlandNationalIdNumber', headerText: "FinlandNationalIdNumber", width: 150, allowEditing: false, allowFiltering: false,},
+          { field: 'Item Purchased', headerText: "Item", width: 100, allowEditing: false, allowFiltering: false,visible:false  },
+          { field: 'Category', headerText: "Category", width: 110, allowEditing: false, allowFiltering: false,visible:false  },
+          { field: 'PurchaseAmountInUSD', headerText: "Amount", width: 100, allowEditing: false, allowFiltering: false },
+          { field: 'Location', headerText: "Location", width: 110, allowEditing: false, allowFiltering: false },
+          { field: 'ReviewRating', headerText: 'Rating', width: 150 },
+          { field: 'PreviousPurchases', headerText: 'Previous Purchases', width: 150 },
+          {
+            field: 'Size',
+            headerText: 'Size',
+            width: 110,
+            // template: '#customSizeTemplate'
+            // template: '<div class="custombg_withdraw"><span class="customtxt_withdraw">${Size}</span></div>'
+
+            // template: '${Size == "Large" ? `<div class="custombg_withdraw"><span class="customtxt_withdraw">${Size}</span></div>` : Size}' 
+
+
+          },
+          {
+            field: 'Color',
+            headerText: 'Color',
+            width: 110
+          },
+          { field: 'Season', headerText: 'Season', width: 150 },
+          { field: 'Payment Method', headerText: 'Payment Method', width: 150 },
+          { field: 'Shipping Type', headerText: 'Shipping Type', width: 150 },
+          { field: 'Discount Applied', headerText: 'Discount Applied', width: 150 },
+        ],
+          $('#RawGrid').html("")
+        ej.grids.Grid.Inject(ej.grids.Edit);
+        // Grid creation
+        gridRaw = new ej.grids.Grid({
+          dataSource: RawJson,
+          allowFiltering: true,
+          filterSettings: {
+            type: 'Menu',
+          },
+
+          editSettings: { allowEditing: true, allowDeleting: true, mode: 'Normal' },
+
+          allowSelection: true,
+          allowPaging: true,
+          allowSorting: true,
+          allowTextWrap: false,
+          allowFiltering: true,
+          pageSettings: { pageSize: 10 },
+          height: 368,
+          // width: 1150,
+          rowHeight: 35,
+          // queryCellInfo: queryCellInfo,
+          // Header of Grid
+          columns: originalColumns
+        });
+        gridRaw.appendTo('#RawGrid');
+        insertTelemetry(EVENT_SOURCE_SPECTRA, ENTITY_AI_CLEANSING_LOAD_RAW_GRID, "Raw Grid Loaded successfully", JSON.stringify({ "Count": "Shopping_Survey_Raw.csv"  }));
+
+      });
+
+
+
+      $('#applyTemplateButton').click(function () {
+        // const sizeColumnIndex = originalColumns.findIndex(col => col.field === 'Size');
+
+        debugger
+        if (!isTemplateApplied) {
+          templateColumns = [
+            //  { type: 'checkbox',width: 50 },
+            { field: 'Customer ID', headerText: 'ID', width: 70, allowEditing: false, allowFiltering: false },
+            { field: 'Age', headerText: "Age", width: 100, allowEditing: false, allowFiltering: false, template: '#customAgeTemplate' },
+            { field: 'Gender', headerText: "Gender", width: 100, allowEditing: false, allowFiltering: false },
+            { field: 'PhoneNumber', headerText: "PhoneNumber", width: 150, allowEditing: false, allowFiltering: false,
+            template: "#customPhoneTemplate" },
+            { field: 'FinlandNationalIdNumber', headerText: "FinlandNationalIdNumber", width: 150, allowEditing: false, allowFiltering: false,
+            template: "#customNationalTemplate" },
+            { field: 'Item Purchased', headerText: "Item", width: 100, allowEditing: false, allowFiltering: false,visible:false },
+            { field: 'Category', headerText: "Category", width: 110, allowEditing: false, allowFiltering: false ,visible:false},
+            { field: 'PurchaseAmountInUSD', headerText: "Amount", width: 100, allowEditing: false, allowFiltering: false, template: '#customAmountTemplate' },
+            { field: 'Location', headerText: "Location", width: 110, allowEditing: false, allowFiltering: false,
+            template: "#customLocationTemplate" },
+            { field: 'ReviewRating', headerText: 'Rating', width: 150, template: '#customRatingTemplate' },
+            { field: 'PreviousPurchases', headerText: 'Previous Purchases', width: 150, template: '#customPrevPurchaseTemplate' },
+            
+            {
+              field: 'Size',
+              headerText: 'Size',
+              width: 110,
+              template: '#customSizeTemplate'
+            },
+            {
+              field: 'Color',
+              headerText: 'Color',
+              width: 110,
+              template: "#customColorTemplate"
+            },
+            { field: 'Season', headerText: 'Season', width: 150 },
+            { field: 'Payment Method', headerText: 'Payment Method', width: 150 },
+            { field: 'Shipping Type', headerText: 'Shipping Type', width: 150 },
+            { field: 'Discount Applied', headerText: 'Discount Applied', width: 150 },
+          ],
+            isTemplateApplied = true;
+          gridRaw.columns = templateColumns; // Set the columns property with the modified array
+          // gridRaw.refresh();
+          insertTelemetry(EVENT_SOURCE_SPECTRA, ENTITY_AI_CLEANSING_IDENTIFY_DATA_ISSUES, "Data Issues Identified successfully", JSON.stringify({ "Columns": "Template Applied"  }));
+            
+        } else {
+          // delete originalColumns[sizeColumnIndex].template;
+          isTemplateApplied = false;
+          gridRaw.columns = originalColumns; // Set the columns property with the modified array
+          // gridRaw.refresh();
+        }
+
+
+      });
+
+
+      loadCSV("static/DataFiles/Shopping_Survey_Final.csv", function (data) {
+        
+        CleansedJson = csvJSON(data);
+        console.log(CleansedJson)
+        // CleansedJson = JSON.parse(CleansedJson);
+        CleansedJson = Object.values(CleansedJson).filter(obj => Object.keys(obj).length > 0);
+        // console.log(CleansedJson)
+        $('#Grid').html("")
+        ej.grids.Grid.Inject(ej.grids.Edit);
+        // console.log(data)
+        // Grid creation
+        grid = new ej.grids.Grid({
+          dataSource: CleansedJson,
+          allowFiltering: true,
+          filterSettings: {
+            type: 'Menu',
+          },
+
+          editSettings: { allowEditing: true, allowDeleting: true, mode: 'Normal' },
+
+          allowSelection: true,
+          allowPaging: true,
+          allowSorting: true,
+          allowTextWrap: false,
+          allowFiltering: true,
+          pageSettings: { pageSize: 10 },
+          height: 368,
+          // width: 1150,
+          rowHeight: 38,
+          // Header of GridCustomer ID	Age	Gender	Item Purchased	Category	 Amount (USD)	Location	Size	Color	Rating	Previous Purchases	Season	Status	Shipping Type	Discount Applied	Promo Code Used	Payment Method	Frequency of Purchases
+          // columns: [
+          //   //  { type: 'checkbox',width: 50 },
+          //   //  { type: 'checkbox',width: 50 },
+          //   { field: 'Customer ID', headerText: 'ID', width: 70, allowEditing: false, allowFiltering: false },
+
+          //   { field: 'Age', headerText: "Age", width: 100, allowEditing: false, allowFiltering: false },
+          //   { field: 'Gender', headerText: "Gender", width: 100, allowEditing: false, allowFiltering: false },
+          //   { field: 'Item Purchased', headerText: "Item", width: 100, allowEditing: false, allowFiltering: false },
+          //   { field: 'Category', headerText: "Category", width: 110, allowEditing: false, allowFiltering: false },
+          //   { field: 'PurchaseAmountInUSD', headerText: "Amount", width: 100, allowEditing: false, allowFiltering: false },
+          //   { field: 'Location', headerText: "Location", width: 110, allowEditing: false, allowFiltering: false },
+          //   { field: 'Size', headerText: 'Size', width: 110 },
+          //   { field: 'Color', headerText: 'Color', width: 110 },
+          //   { field: 'ReviewRating', headerText: 'Rating', width: 150 },
+          //   { field: 'PreviousPurchases', headerText: 'Previous Purchases', width: 150 },
+          //   { field: 'Season', headerText: 'Season', width: 150 },
+          //   { field: 'Payment Method', headerText: 'Payment Method', width: 150 },
+          //   { field: 'Shipping Type', headerText: 'Shipping Type', width: 150 },
+          //   { field: 'Discount Applied', headerText: 'Discount Applied', width: 150 },
+
+
+          // ],
+          columns: [
+            //  { type: 'checkbox',width: 50 },
+            { field: 'Customer ID', headerText: 'ID', width: 70, allowEditing: false, allowFiltering: false },
+            { field: 'Age', headerText: "Age", width: 100, allowEditing: false, allowFiltering: false, template: '#customAgeTemplate' },
+            { field: 'Gender', headerText: "Gender", width: 100, allowEditing: false, allowFiltering: false },
+            { field: 'PhoneNumber', headerText: "PhoneNumber", width: 150, allowEditing: false, allowFiltering: false,
+            template: "#customPhoneTemplate" },
+            { field: 'FinlandNationalIdNumber', headerText: "FinlandNationalIdNumber", width: 150, allowEditing: false, allowFiltering: false,
+            template: "#customNationalTemplate" },
+            { field: 'Item Purchased', headerText: "Item", width: 100, allowEditing: false, allowFiltering: false,visible:false },
+            { field: 'Category', headerText: "Category", width: 110, allowEditing: false, allowFiltering: false,visible:false },
+            { field: 'PurchaseAmountInUSD', headerText: "Amount", width: 100, allowEditing: false, allowFiltering: false, template: '#customAmountTemplate' },
+            { field: 'Location', headerText: "Location", width: 120, allowEditing: false, allowFiltering: false ,
+            template: "#customLocationTemplate"},
+            { field: 'ReviewRating', headerText: 'Rating', width: 150, template: '#customRatingTemplate' },
+            { field: 'PreviousPurchases', headerText: 'Previous Purchases', width: 150, template: '#customPrevPurchaseTemplate' },
+            
+            {
+              field: 'Size',
+              headerText: 'Size',
+              width: 110,
+              template: '#customSizeTemplate'
+            },
+            {
+              field: 'Color',
+              headerText: 'Color',
+              width: 110,
+              template: "#customColorTemplate"
+            },
+           { field: 'Season', headerText: 'Season', width: 150 },
+            { field: 'Payment Method', headerText: 'Payment Method', width: 150 },
+            { field: 'Shipping Type', headerText: 'Shipping Type', width: 150 },
+            { field: 'Discount Applied', headerText: 'Discount Applied', width: 150 },
+          ],
+
+        });
+        grid.appendTo('#Grid');
+      });
+
+
+
+
+      function countMismatches(arr1, arr2) {
+        let mismatchCount = 0;
+
+        // Ensure both arrays have the same length
+        if (arr1.length !== arr2.length) {
+          return -1; // Indicate unequal array lengths
+        }
+
+        // Iterate through each object in the arrays
+        for (let i = 0; i < arr1.length; i++) {
+          const obj1 = arr1[i];
+          const obj2 = arr2[i];
+
+          // Iterate through each key-value pair in the objects
+          for (const key in obj1) {
+            if (obj1[key] !== obj2[key]) {
+              mismatchCount++;
+              break; // If one mismatch is found, move to the next object
+            }
+          }
+        }
+
+        return mismatchCount;
+      }
+
+
+
+
+      function cleanRows() {
+        insertTelemetry(EVENT_SOURCE_SPECTRA, ENTITY_AI_CLEANSING_CALL_AUTONOMOUS_CLEANSE_AGENTS, "Cleaning Agents Started successfully", JSON.stringify({ "Data": "Clean Rows"  }));
+
+
+        // let paramsObjRaw = {}
+        // paramsObjRaw.functionName = "CleanseRows";
+        // paramsObjRaw.api = "GeminiAPI"
+        // paramsObjRaw.moduleName = "CleanseAgent"
+        // paramsObjRaw.queryType = "clean";
+        let urlRaw = "/CleanseRows"
+        console.log(urlRaw)
+
+        // Swal.fire({ title: 'Cleanisng Shopping_Survey_Raw.csv ..please wait' });
+        // Swal.showLoading();
+        // async function progressSteps() {
+        //   if (stepperObj.activeStep < iconOnly.length - 1) {
+        //     stepperObj.activeStep++;
+        //     await setTimeout(progressSteps, 4000); // Delay for 4 seconds
+        //   }
+        // }
+
+        // progressSteps();
+        Swal.fire({
+          // icon: 'progress',
+          title: 'Cleansing Agent In Progress',
+          html: ` 
+          <div class="stepper-section"> 
+      <nav id="stepper"></nav>
+      <div id="paymentStatus"> Cleansing In Progress </div>
+    </div>
+                            
+                             
+                         `, // Placeholder for the Syncfusion Grid
+          didOpen: () => {
+            var ele = document.getElementById('container');
+            if (ele) {
+              ele.style.visibility = "visible";
+            }
+
+            var iconOnly = [
+              { label: 'Filter Identification', iconCss: 'fas fa-filter', description: "Identifying Columns for Uneven Data" },
+              { label: 'Multi Language Conversion', iconCss: 'fas fa-broom', description: "here is Multi Language Cleansing stepper" },
+              { label: 'Data Normalization', iconCss: 'far fa-soap', description: "here is Data Normalizing stepper" },  // Font Awesome filter icon<font-awesome-icon :icon="['fas', 'filter']" />
+              { label: 'Statistical Cleansing', iconCss: 'far fa-soap', description: "here is Stats Cleansing stepper" },
+              { label: 'Data Enrichment', iconCss: 'far fa-soap', description: "here is Data Enrichment stepper" },// Font Awesome truck icon<font-awesome-icon :icon="['far', 'objects-column']" />
+              { label: 'Domain Cleansing', iconCss: 'fas fa-check-double', description: "here is Domain Cleansing stepper" },
+              { label: 'Cleansing Completed', iconCss: 'fas fa-check-double', description: "Cleansing Completed Successfully" }
+              // { label: 'Cleansing Completed', iconCss: 'fas fa-check-circle' }// Font Awesome check-circle icon
+            ];
+            // function createTooltipContent(step) {
+            //   console.log(step.value.description)
+            //   const tooltipContent = `${step.value.label}<br>Description: ${step.value.description}`;
+            //   console.log("Tooltip Content:", tooltipContent);
+            //   return tooltipContent;
+            // }
+
+            function createTooltipContent(step) {
+              // Check if a dynamic description is available for this step
+              const dynamicDescription = step.value.dynamicDescription || step.value.description;
+              const tooltipContent = `${step.value.label}<br>Description: ${dynamicDescription}`;
+              console.log("Tooltip Content:", tooltipContent);
+              return tooltipContent;
+            }
+            function updateStatus(text, color, eventCalled) {
+              // var statusMap = {
+              //   'NotStarted': { text: 'Your payment has not started yet', color: '#e74d4d' },
+              //   'InProgress': { text: 'Processing your payment', color: 'orange' },
+              //   'Completed': { text: 'Payment successful', color: '#4CAF50' }
+              // };
+
+              var currentStatus = document.getElementById("paymentStatus");
+              if (currentStatus) {
+
+                currentStatus.innerText = text + "\n";
+                currentStatus.style.backgroundColor = color;
+                insertTelemetry(EVENT_SOURCE_SPECTRA, eventCalled, eventCalled+" Completed successfully", JSON.stringify({ "Result": text  }));
+
+              }
+            }
+
+
+            var stepperWithIcon = new ej.navigations.Stepper({
+              steps: iconOnly,
+              activeStep: 0,
+              showTooltip: true,
+              tooltipTemplate: createTooltipContent,
+              //         stepChanged: () => {
+              // var status = stepper.steps[1].status
+              // updateStatus(status)
+              // }
+            });
+            stepperWithIcon.appendTo("#stepper");
+
+            // Get reference to stepper component
+            var stepperObj = stepperWithIcon;
+
+
+            console.log(stepperObj)
+            socket.on('Multi_Language_Cleansing_Agent', (msg) => {
+              stepperObj.activeStep++;
+              stepperObj.steps[stepperObj.activeStep].dynamicDescription = msg;
+
+              // Refresh the tooltip 
+// 
+// 
+// 
+// 
+
+              stepperObj.refresh();
+              updateStatus(msg, 'orange',ENTITY_AI_CLEANSING_MULTILANGUAGE_CLEANSING_AGENT)
+              console.log("socketIO", msg)
+            });
+
+            socket.on('Data_Normalizing_Agent', (msg) => {
+              stepperObj.activeStep++;
+              stepperObj.steps[stepperObj.activeStep].dynamicDescription = msg;
+
+              // Refresh the tooltip 
+              stepperObj.refresh();
+              updateStatus(msg, 'brown',ENTITY_AI_CLEANSING_DATA_NORMALIZING_AGENT)
+              console.log("socketIO", msg)
+            });
+            socket.on('Stats_Cleansing_Agent', (msg) => {
+              stepperObj.activeStep++;
+              stepperObj.steps[stepperObj.activeStep].dynamicDescription = msg;
+
+              // Refresh the tooltip 
+              stepperObj.refresh();
+              updateStatus(msg, 'orange',ENTITY_AI_CLEANSING_STATISTICS_CLEANSING_AGENT)
+              console.log("socketIO", msg)
+            });
+            socket.on('Data_Enrichment_Agent', (msg) => {
+              stepperObj.activeStep++;
+              stepperObj.steps[stepperObj.activeStep].dynamicDescription = msg;
+
+              // Refresh the tooltip 
+              stepperObj.refresh();
+              updateStatus(msg, 'brown',ENTITY_AI_CLEANSING_DATA_ENRICHEMENT_AGENT)
+              console.log("socketIO", msg)
+            });
+            socket.on('Domain_Cleansing_Agent', (msg) => {
+              updateStatus(msg, 'orange',ENTITY_AI_CLEANSING_DOMAIN_CLEANSING_AGENT)
+              stepperObj.steps[stepperObj.activeStep].dynamicDescription = msg;
+
+              // Refresh the tooltip 
+              stepperObj.refresh();
+
+              stepperObj.activeStep++;
+              console.log("socketIO", msg)
+              const mismatches = countMismatches(RawJson, CleansedJson);
+
+              if (mismatches === -1) {
+                console.log("Arrays have different lengths.");
+              } else {
+                console.log("Number of mismatches:", mismatches);
+                updateStatus("Count of values affected in csv : " + mismatches, '#4CAF50')
+              }
+
+
+            });
+
+
+          },
+
+          width: "1000px",
+          showConfirmButton: true,
+          allowOutsideClick: false,
+          backdrop: `rgba(0,0,0,1)`,
+          confirmButtonText: 'Cancel'
+        })
+
+
+        setTimeout(() => {
+          fetch(urlRaw).then((resp) => resp.json())
+            .then(async (data) => {
+
+              // Swal.close();
+
+            });
+
+
+
+
+        });
+
+
+        showGridButton.click()
+        showGridButton.style.display = "inline-block"
+        // Swal.fire('Done!', "CSV Rows Updated Successfully!", 'success');
+        var myCard = document.getElementById("myCard1");
+        var cardText = document.getElementById("cardText1");
+        myCard.classList.remove('hidden');
+        myCard.classList.add('card-green');
+        cardText.textContent = "The above rows has been cleansed from Shopping_Survey_Raw.csv : \n Age, Amount, Size, Color, ReviewRating, PreviousPurchases ";
+
+      }
+
+      // Get the button element (replace with your actual button's ID)
+      const myButton = document.getElementById("cleanseButton");
+
+      // Add an event listener to the button
+      myButton.addEventListener("click", cleanRows);
+    });
+
+  </script>
+
+</body>
+{% endblock %}

@@ -1,0 +1,1618 @@
+{% extends "MasterHeader.html" %} {% block content %}
+<title>Spectra - MyTicketDetails</title>
+<link href="static/CDN/scripts/timeline.css" rel="stylesheet" />
+<script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+<script src="static/CDN/scripts/jszip.js" type="text/javascript"></script>
+<script src="static/CDN/scripts/jszip.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+  integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/css/index.css">
+<script src="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/index.js"></script>
+<link href="static/CDN/scripts/timeline.css" rel="stylesheet" />
+<link href="static/CDN/scripts/chat.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/showdown-table@1.0.1/dist/showdown-table.min.js"></script>
+<!-- <link rel="stylesheet" href="static/CDN/landing/assets/css/main.css" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"
+  integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"
+  type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.2/dist/sweetalert2.all.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.2/dist/sweetalert2.min.css" />
+<link rel="stylesheet" href="static/CDN/scripts/colored-toasts.css" />
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript"></script>
+
+
+<!--new-->
+<link rel="stylesheet" href="CDN/scripts/style.css" type="text/css" />
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<!-- Resources -->
+<script src="https://cdn.amcharts.com/lib/5/index.js" type="text/javascript"></script>
+<script src="https://cdn.amcharts.com/lib/5/map.js" type="text/javascript"></script>
+<script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js" type="text/javascript"></script>
+<script src="https://cdn.amcharts.com/lib/5/xy.js" type="text/javascript"></script>
+<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js" type="text/javascript"></script>
+
+<script src="https://cdn.amcharts.com/lib/5/percent.js" type="text/javascript"></script>
+<script src="https://cdn.amcharts.com/lib/5/radar.js" type="text/javascript"></script>
+<script src="https://storage.googleapis.com/data-scenarios/WebAPI/CDN/scripts/wc.js" type="text/javascript"></script>
+<script src="https://cdn.amcharts.com/lib/5/wc.js" type="text/javascript"></script>
+<script src="https://cdn.amcharts.com/lib/5/hierarchy.js" type="text/javascript"></script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css"
+  type="text/css" />
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+  type="text/javascript"></script>
+
+
+
+<script src="https://cdn.amcharts.com/lib/5/themes/Responsive.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css" />
+
+<link href="https://cdn.syncfusion.com/ej2/ej2-grids/styles/material.css" rel="stylesheet" />
+
+<link href="https://cdn.syncfusion.com/ej2/25.1.35/ej2-lists/styles/material.css" rel="stylesheet" />
+<link href="https://cdn.syncfusion.com/ej2/25.1.35/ej2-layouts/styles/material.css" rel="stylesheet" />
+<link href="https://cdn.syncfusion.com/ej2/25.1.35/ej2-inputs/styles/material.css" rel="stylesheet" />
+<link href="//cdn.syncfusion.com/ej2/21.2.3/ej2-dropdowns/styles/material.css" rel="stylesheet" type="text/css" />
+
+<script src="https://cdn.syncfusion.com/ej2/25.1.35/dist/ej2.min.js" type="text/javascript"></script>
+
+<script src="//cdn.syncfusion.com/ej2/21.2.3/ej2-data/dist/global/ej2-data.min.js" type="text/javascript"></script>
+<script src="//cdn.syncfusion.com/ej2/21.2.3/ej2-inputs/dist/global/ej2-inputs.min.js" type="text/javascript"></script>
+
+<script src="//cdn.syncfusion.com/ej2/21.2.3/ej2-lists/dist/global/ej2-lists.min.js" type="text/javascript"></script>
+<script src="//cdn.syncfusion.com/ej2/21.2.3/ej2-popups/dist/global/ej2-popups.min.js" type="text/javascript"></script>
+<script src="//cdn.syncfusion.com/ej2/21.2.3/ej2-dropdowns/dist/global/ej2-dropdowns.min.js"
+  type="text/javascript"></script>
+
+<link href="https://cdn.syncfusion.com/ej2/27.1.48/ej2-base/styles/material.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.syncfusion.com/ej2/27.1.48/ej2-buttons/styles/material.css" rel="stylesheet" type="text/css" />
+<!-- Essential JS 2 Carousel's material theme -->
+<link href="https://cdn.syncfusion.com/ej2/27.1.48/ej2-navigations/styles/material.css" rel="stylesheet"
+  type="text/css" />
+<!--style reference from app-->
+<link href="styles.css" rel="stylesheet" />
+<!-- Essential JS 2 Carousel's dependent scripts -->
+<script src="https://cdn.syncfusion.com/ej2/27.1.48/ej2-base/dist/global/ej2-base.min.js"
+  type="text/javascript"></script>
+<script src="https://cdn.syncfusion.com/ej2/27.1.48/ej2-buttons/dist/global/ej2-buttons.min.js"
+  type="text/javascript"></script>
+<!-- Essential JS 2 Carousel's global script -->
+<script src="https://cdn.syncfusion.com/ej2/27.1.48/ej2-navigations/dist/global/ej2-navigations.min.js"
+  type="text/javascript"></script>
+<script src="https://cdn.syncfusion.com/ej2/syncfusion-helper.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" type="text/javascript"></script>
+
+<script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/themes/Responsive.js"></script>
+<link href="https://cdn.syncfusion.com/ej2/material.css" rel="stylesheet" />
+<link href="//cdn.syncfusion.com/ej2/21.2.3/ej2-dropdowns/styles/bootstrap5.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.syncfusion.com/ej2/scripts/ej2-polyfills.min.js"></script>
+<script src="https://cdn.syncfusion.com/ej2/scripts/ej2-scripts.min.js"></script>
+<script src="https://cdn.syncfusion.com/ej2/scripts/ej2-popups.min.js"></script>
+<script src="https://cdn.syncfusion.com/ej2/scripts/ej2-inputs.min.js"></script>
+<script src="https://cdn.syncfusion.com/ej2/scripts/ej2-lists.min.js"></script>
+<script src="https://cdn.syncfusion.com/ej2/scripts/ej2-dropdowns.min.js"></script>
+<script src="https://cdn.syncfusion.com/ej2/scripts/ej2-buttons.min.js"></script>
+
+<body>
+  <style></style>
+  <style>
+     #highlightbody {
+        padding: 20px;
+      }
+      .policy-card {
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+      }
+      .policy-name {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #007bff;
+      }
+      .reason {
+        font-size: 14px;
+        line-height: 1.5;
+        color: #333;
+      }
+    #heartpointsChart {
+      width: 100%;
+      height: 120px;
+    }
+
+    #stepcountChart {
+      width: 100%;
+      height: 120px;
+    }
+
+    #caloriesChart {
+      width: 100%;
+      height: 120px;
+    }
+
+    #guageChart {
+      width: 100%;
+      height: 250px;
+    }
+  </style>
+  <style>
+    .btn-group {
+      display: inline-block !important;
+    }
+
+    .e-grid .e-rowcell:not(.e-editedbatchcell) {
+      opacity: initial;
+    }
+
+    .e-grid .e-rowcell.e-templatecell {
+      overflow: visible;
+    }
+
+    .dropdown-menu {
+      line-height: 1.5;
+    }
+  </style>
+  <style>
+    body {
+      font-size: 14px !important;
+      font-weight: 400 !important;
+      line-height: 1 !important;
+
+      overflow-x: hidden;
+    }
+
+    #navbtn:hover,
+    #navbtn:focus,
+    #navbtn {
+      background-color: #337ab7;
+      border: none;
+    }
+
+    .navbar-dark .navbar-nav .nav-link {
+      color: #f9fafb !important;
+    }
+
+
+
+    /* Add this custom CSS to your stylesheet */
+    /* #DescriptionGrid .e-frozencontent .e-headercell::after {
+    display: none !important;
+  } */
+
+    /* Define CSS styles for "Low" risk type */
+    .risk-1 {
+      background-color: rgb(49, 226, 226);
+      /* Green background for Low risk */
+      color: black;
+      /* White text color for better contrast */
+    }
+
+    /* Define CSS styles for "Medium" risk type */
+    .risk-2 {
+      background-color: #2064e2;
+      /* Green background for Low risk */
+      color: white;
+      /* Dark text color for Medium risk */
+    }
+
+    /* Define CSS styles for "High" risk type */
+    .risk-3 {
+      background-color: #ffcc29;
+      /* Yellow background for Medium risk */
+      color: #333;
+      /* White text color for better contrast */
+    }
+
+    /* Define CSS styles for "High" risk type */
+    .risk-4 {
+      background-color: orange;
+      /* Red background for High risk */
+      color: white;
+      /* White text color for better contrast */
+    }
+
+    /* Define CSS styles for "High" risk type */
+    .risk-5 {
+      background-color: #ff4e4e;
+      /* Red background for High risk */
+      color: white;
+      /* White text color for better contrast */
+    }
+
+    .red-cell {
+      background-color: red;
+      color: white;
+      /* You can adjust the text color as needed */
+    }
+
+    #Dialog {
+      text-align: left;
+      /* Center-align content within the dialog */
+      padding: 10px;
+      /* Add some padding for better appearance */
+      border-radius: 5px;
+      border-color: #666;
+      border-style: solid;
+      /* Add rounded corners to the dialog */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      /* Add a subtle shadow */
+    }
+
+    /* Additional styling for table within the dialog */
+    #Dialog table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    /* Style for table rows and cells within the dialog */
+    #Dialog tr {
+      border-bottom: 1px solid #ddd;
+      /* Add a border at the bottom of each row */
+    }
+
+    #Dialog td {
+      padding: 5px;
+      /* Add padding to cells for spacing */
+    }
+
+    .dialog-content table {
+      width: 100%;
+    }
+
+    .dialog-content td {
+      white-space: normal;
+      /* Allow text to wrap to the next line */
+      word-wrap: break-word;
+      /* Allow long words to break and wrap */
+    }
+
+    .header-text {
+      font-weight: bold;
+      font-size: 16px;
+      /* Adjust the font size as needed */
+    }
+
+    /* Define a CSS class for horizontal scrolling */
+    .dialog-content-horizontal-scroll {
+      overflow: auto;
+    }
+
+    /* Add your styles here */
+    .toggle-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .toggle-label {
+      margin-right: 0px;
+      margin-top: 10px;
+    }
+
+    /* .container {
+    padding: 2% 0;
+  } */
+
+    #container {
+      position: relative;
+      height: 100%;
+    }
+
+    .custom-folder-row {
+      background-color: lightblue;
+      /* Set your desired background color */
+    }
+
+    .custom-fileset-row {
+      background-color: lightgreen;
+      /* Set your desired background color */
+    }
+
+    .custom-imageset-row {
+      background-color: lightgoldenrodyellow;
+      /* Set your desired background color */
+    }
+
+    /* Use the default EJ2 TreeGrid folder icon for expand */
+    .custom-expand-icon::before {
+      background-image: url("folderIcon.png");
+      content: "";
+      /* Clear default content */
+      display: inline-block;
+      /* Ensure the element has dimensions */
+      width: 16px;
+      /* Set the width and height based on your icon size */
+      height: 16px;
+      /* content: 'e-folder'; */
+      /* Default EJ2 folder icon for expand */
+      /* font-family: 'e-icons'; */
+      /* Font family for EJ2 icons */
+    }
+
+    /* Use the default EJ2 TreeGrid folder icon for collapse */
+    .custom-collapse-icon::before {
+      background-image: url("folderIcon.png");
+      content: "";
+      /* Clear default content */
+      display: inline-block;
+      /* Ensure the element has dimensions */
+      width: 16px;
+      /* Set the width and height based on your icon size */
+      height: 16px;
+      /* content: 'e-folder'; */
+      /* Default EJ2 folder icon for collapse */
+      /* font-family: 'e-icons'; */
+      /* Font family for EJ2 icons */
+    }
+
+    .e-icons-e-treegridexpand {
+      background-image: url("folderIcon.png");
+      content: "";
+      /* Clear default content */
+      display: inline-block;
+      /* Ensure the element has dimensions */
+      width: 16px;
+      /* Set the width and height based on your icon size */
+      height: 16px;
+      /* content: 'e-folder'; */
+      /* Default EJ2 folder icon for collapse */
+      /* font-family: 'e-icons'; */
+      /* Font family for EJ2 icons */
+    }
+
+    #iconsContainer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    #iconsContainer i {
+      font-size: 24px;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+
+    #labelBelowIcons {
+      text-align: center;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    #form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* label {
+      display: block;
+      margin-bottom: 5px;
+    } */
+
+    label[for^="filesetDef"],
+    label[for^="folderDef"],
+    label[for^="imagesetDef"],
+    label[for^="shareSummary"] {
+      color: #aaa;
+      /* Use your preferred grey color */
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    input[type="radio"] {
+      margin-right: 5px;
+    }
+
+    #filesetFields,
+    #folderFields,
+    #imagesetFields {
+      margin-top: 15px;
+    }
+
+    .tag {
+      display: inline-block;
+      /* background-color: rgb(211, 211, 211); */
+      background-color: rgb(12, 230, 175);
+      /* Replace with your desired background color */
+      color: #000000;
+      /* Replace with your desired text color */
+      margin-left: 10px;
+      /* Adjust the spacing between name and type */
+      font-size: 0.8em;
+      /* Adjust the font size as needed */
+      /* border-radius: 20px; */
+      border-radius: 0px;
+      /* Adjust the border-radius to make it pill-shaped */
+      padding: 5px 10px;
+      /* Adjust the padding as needed */
+    }
+
+    /* Set the icon colors */
+    .e-align-top,
+    .e-delete,
+    .e-delete-1,
+    .e-align-bottom,
+    .e-all {
+      color: blue !important;
+    }
+
+    .e-file-new,
+    .e-sub-total,
+    .e-field-settings {
+      color: green !important;
+    }
+
+    .e-eye,
+    .e-description {
+      color: red !important;
+    }
+
+    /* .e-all {
+    color: yellow !important;
+  } */
+
+    /* .e-align-bottom {
+    color: orange !important;
+  } */
+
+    .e-filter {
+      color: black !important;
+    }
+
+    #DescriptionDropdownContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .tag.optional {
+      display: inline-block;
+
+      background-color: #f9fafb;
+      /* Replace with your desired background color */
+      color: #ff0000;
+      /* Replace with your desired text color */
+      margin-left: 10px;
+      /* Adjust the spacing between name and type */
+      font-size: 0.7em;
+      /* Adjust the font size as needed */
+      border-radius: 20px;
+      /* Adjust the border-radius to make it pill-shaped */
+      padding: 5px 10px;
+      /* Adjust the padding as needed */
+    }
+
+    /* .e-content.e-lib.e-touch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  } */
+
+    .item-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #dqRulesSectionTab .e-tab.e-fill .e-tab-header .e-toolbar-item.e-active .e-tab-wrap {
+      background: #202020;
+      border-radius: 0;
+    }
+
+    #dqRulesSectionTab .e-tab.e-fill .e-tab-header {
+      border-bottom: 2px Solid #202020;
+    }
+
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .circle {
+      font-size: 4em;
+      width: 100px;
+    }
+
+    .border-bottom {
+      width: 70%;
+      padding: 0.5em 0 0.5em 2em;
+    }
+
+    .no-border {
+      border: 0;
+    }
+  </style>
+
+  <style>
+    .aibtn:focus {
+      box-shadow: none;
+    }
+
+    .customtxt {
+      font-size: xx-large !important;
+    }
+
+    .highlight {
+      background: #f6d155;
+      color: dimgrey;
+      font-size: 14px;
+    }
+
+    .searchicon {
+      display: inline-block;
+      width: 35px;
+      height: 35px;
+      top: calc(50% - 20px);
+      border: 2px solid #006e51;
+      border-radius: 40px;
+      z-index: 1;
+    }
+
+    .cbtn {
+      border-radius: 15px;
+      width: 150px;
+    }
+
+    /* .swal2-html-container {
+      text-align: left;
+    } */
+
+    /* body {
+      font-size: 12px;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    } */
+  </style>
+
+  <style>
+    .material #property tr#slider-showon {
+      display: none;
+    }
+
+    /* .slider_container {
+        margin-top: 45px;
+      } */
+
+    .slider_labeltext {
+      padding-bottom: 26px;
+      font-size: 13px;
+      font-weight: 500;
+      /* margin-top: 15px; */
+    }
+
+    .slider-userselect {
+      -webkit-user-select: none;
+      /* Safari 3.1+ */
+      -moz-user-select: none;
+      /* Firefox 2+ */
+      -ms-user-select: none;
+      /* IE 10+ */
+      user-select: none;
+      /* Standard syntax */
+    }
+  </style>
+  <style type="text/css">
+    .db-carousel-section .carousel-sample {
+      border: 1px solid #e5e5e5;
+      border-radius: 0.5em;
+      margin: 0 auto 2em;
+      max-width: 800px;
+      height: 485px !important;
+    }
+
+    .db-carousel {
+      background-color: inherit;
+      border-radius: 0.5em;
+    }
+
+    .db-carousel .e-carousel-items .e-carousel-item .card-title,
+    .db-carousel .e-carousel-items .e-carousel-item .card-text {
+      opacity: 0;
+      text-align: justify;
+      transform: translateY(20px);
+    }
+
+    .db-carousel .e-carousel-items .e-carousel-item.e-active .card-title,
+    .db-carousel .e-carousel-items .e-carousel-item.e-active .card-text {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+
+    .db-carousel .e-carousel-items .e-carousel-item .card-title {
+      font-size: 20px;
+      transition: transform 0.4s ease 0.2s;
+    }
+
+    .db-carousel .e-carousel-items .e-carousel-item .card-text {
+      font-size: 14px;
+      transition: transform 0.4s ease 0.2s;
+    }
+
+    .db-carousel .e-carousel-indicators {
+      height: 3em;
+    }
+
+    .db-carousel .e-carousel-indicators.e-default .e-indicator-bar .e-indicator div {
+      background-color: #e7e7e7;
+    }
+
+    @media screen and (max-width: 480px) {
+      .db-carousel-section .carousel-sample {
+        width: 100%;
+        height: 485px !important;
+      }
+    }
+
+    .e-previous-icon,
+    .e-next-icon {
+      color: black !important;
+    }
+  </style>
+  <div class="row">
+    <div class="col-md-11">
+      <ul id="breadcrumb"></ul>
+    </div>
+    <div class="col-md-1"><i class="bi bi-info-circle" style="float: right;
+      margin-right: 20px;
+      margin-top: 10px;
+      font-size: x-large;
+      color: deepskyblue;cursor: pointer;"
+        onclick="loadArchitectureModal('AutoAgentPattern.jpg','Autogen Agentic Framework Multi Agent Group Chat')"></i>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-primary" style="display: none" data-bs-toggle="modal"
+    data-bs-target="#insuranceModal" id="insuranceBtn"></button>
+  <div class="modal fade" id="insuranceModal" tabindex="-1" aria-labelledby="insuranceLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="insuranceLabel">Suggested Health Insurance Policies</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="height: 480px;">
+          <div id="insurancebody">
+            </div>
+          </div>
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+
+
+  <button type="button" class="btn btn-primary" style="display: none" data-bs-toggle="modal"
+    data-bs-target="#highlightModal" id="highlightBtn"></button>
+  <div class="modal fade" id="highlightModal" tabindex="-1" aria-labelledby="highlightLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="highlightLabel"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="height: 480px; overflow-y: hidden">
+          <div id="highlightbody">
+            <div class="row">
+              <div id="highlightSummary" class="form-control" aria-label="Entity Summary" style="
+                  height: 300px;
+                  overflow-y: auto;
+                  font-size: 12px;
+                  color: black;
+                "></div>
+            </div>
+            <div class="row my-3" style="text-align: center">
+              <span id="finalReview"></span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container" style="max-width: -webkit-fill-available">
+    <div class="row" id="welcomemsg" style="
+        background-color: #e9f4f7;
+        height: 45px;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      ">
+      <element style="font-size: 18px">
+        <span class="loginUserFullName"></span>
+        <a href="#" onclick="loadWsp()" id="appLoadFolders" style="font-size: 14px"></a>
+        <img src="static/CDN/images/entity.jpg" title="Search Entity" class="searchicon" id="ptSrchFace"
+          onclick="loadWsp()" />
+      </element>
+    </div>
+
+    <div class="row" style="padding-top: 20px">
+      <div class="col-md-8"></div>
+      <div class="col-md-2"></div>
+      <div class="col-md-1" style="text-align: right"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-9">
+        <div class="row">
+          <div id='Accordion_Nested'></div>
+        </div>
+        <div id="acc_summary" style="display: none;">
+          <div style="display: flex; justify-content: flex-end;">
+
+            <button type="button" class="cbtn btn btn-outline-info"
+              style="margin-right: 0px;    width: 170px; text-align: left; font-size: 12px" id="getInsuranceDetailsBtn"onclick="getInsuranceData()">
+              <!-- <img src="static/CDN/images/mic.png" style="
+                  width: 35px;
+                  height: 30px;
+                  cursor: pointer;
+                  margin-right: 5px;
+                  margin-left: -10px;
+                " title="Read out summary" /> -->
+                Get Insurance Details</button>
+          </div>
+          <div id="ptSummary" class="form-control" aria-label=" Summary"
+            style="height: 500px; overflow-y: auto; font-size: 15px"></div>
+        </div>
+        <div id="acc_fivewh" style="display: none;">
+          <div id="ptAnalysis" class="form-control" aria-label="5WH"
+            style="height: 450px; overflow-y: auto; font-size: 15px">
+          </div>
+          <div class="">
+            <button class="btn btn-sm btn-primary mt-1" style="float: right;" id="addToResp"
+              onclick="takeScreenshot('ptAnalysisTable')">Add to
+              response</button>
+            <button class="btn btn-sm btn-danger my-1" type="button" id="addToRespLoading"
+              style="display:none;float:right">
+              <span class="" style="margin-right: 5px;" aria-hidden="true"><i class="bi bi-x"></i></span>
+              <span role="status">Remove from response</span>
+            </button>
+          </div>
+        </div>
+        <div id="acc_timeline" style="display: none;">
+          <div class="timeline" id="timelineView" style="height: 450px !important; overflow-y: auto;"></div>
+        </div>
+        <div id="acc_sentscore" style="display: none;">
+          <div id="sentscore"></div>
+        </div>
+      </div>
+      <div class="col-md-3" style="border-radius: 1px; border-color: gray">
+        <div class="row" style="
+            font-weight: bold;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 0px;
+            padding-left: 130px;
+            margin-bottom: 10px;
+          ">
+          AI Highlights
+        </div>
+        <!-- <div class="row">
+          <a style="text-decoration: underline !important;color: blue !important;margin-left: 30px;cursor: pointer;margin-bottom: 10px;"
+            onclick="(()=>{$('#architectureHeader')[0].innerText='PATTERN 3 - Autogen Agentic Framework Multi Agent Group Chat';$('#architectureImg')[0].src='static/CDN/images/AutoAgentPattern.jpg';$('#architectureBtn').click();})()"><img
+              src="static/CDN/images/autogen.png" style="width:20px;margin-left: 10px;margin-right: 10px;" />Click here
+            to view agent architecture</a>
+        </div> -->
+        <div class="row mb-3" style="text-align: center">
+          <div class="col-md-6">
+            <button type="button" id="submit" class="cbtn btn btn-outline-info"
+              style="width: 160px; text-align: left; font-size: 12px" onclick="getSummary()">
+              <img src="static/CDN/images/summary.png" style="
+                  width: 35px;
+                  height: 30px;
+                  cursor: pointer;
+                  margin-right: 15px;
+                  margin-left: -4px;
+                " title="Summary" />Insights</button>
+          </div>
+          <div class="col-md-6">
+            <button type="button" class="cbtn btn btn-outline-info"
+              style="width: 170px; text-align: left; font-size: 12px" id="textRead">
+              <img src="static/CDN/images/mic.png" style="
+                  width: 35px;
+                  height: 30px;
+                  cursor: pointer;
+                  margin-right: 5px;
+                  margin-left: -10px;
+                " title="Read out summary" />Read out summary</button>
+            <div id="speechMenu" style="display: none">
+              <i class="bi bi-pause-circle" style="font-size: 25px; cursor: pointer; color: #4399c4" id="textPause"
+                title="Pause" onclick="(()=>{window.speechSynthesis.pause();})()"></i>
+              <i class="bi bi-play-circle" style="font-size: 25px; cursor: pointer; color: #4399c4" id="textPlay"
+                title="Resume" onclick="(()=>{window.speechSynthesis.resume();})()"></i>
+              <i class="bi bi-x-circle" style="font-size: 25px; cursor: pointer; color: #4399c4" id="textCancel"
+                title="Cancel" onclick="(()=>{window.speechSynthesis.cancel();$('#speechMenu').hide();
+                $('#textRead').show();})()"></i>
+
+
+            </div>
+
+          </div>
+        </div>
+        <div class="row" id="aiHighlights"></div>
+
+      </div>
+    </div>
+
+  </div>
+  </div>
+  </div>
+
+
+
+  <script>
+
+    const driver = window.driver.js.driver;
+    const urlParams = new URLSearchParams(window.location.search);
+    var selectedMultiApp = "";
+    selectedMultiApp = localStorage.getItem('currentTenant')
+    let elementsFull = document.getElementsByClassName("loginUserFullName");
+    let popupText = "";
+    let stages = 6;
+    let stagesData = [];
+    var selectedPatient = "{{ticketId}}";
+    var selectedContent = "";
+
+    Array.from(elementsFull).forEach((ele) => {
+      if (selectedMultiApp == "Panacea") {
+        ele.innerText = "Welcome Doctor to Panacea!";
+      }
+      else if (selectedMultiApp == "Sentinel") {
+        ele.innerText = "Welcome to Sentinel!";
+      }
+      else if (selectedMultiApp == "Spectra") {
+        ele.innerText = "Welcome to Spectra!";
+      }
+    });
+    console.log(selectedMultiApp)
+    debugger
+    if (selectedMultiApp == "Panacea") {
+      $("#navheadertext")[0].innerText = "Spectra - Patient Details"
+
+    }
+    else if (selectedMultiApp == "Sentinel") {
+      $("#navheadertext")[0].innerText = "Spectra - Entity Details"
+
+    }
+    else if (selectedMultiApp == "Spectra") {
+      $("#navheadertext")[0].innerText = "Spectra - Ticket Details"
+
+    }
+
+    var items = [
+      {
+        iconCss: 'e-icons e-home',
+        url: "/",
+      },
+      {
+        id: 'breadcrumb_spectra',
+        text: "Spectra",
+        url: "/",
+
+      },
+      {
+        id: 'breadcrumb_my_entities',
+        text: "My Entities",
+        url: "/EntitiesList",
+      },
+      {
+        id: 'breadcrumb_my_entity_summary',
+        text: "EntitySummaryAction",
+        url: "/EntitySummaryAction?id=" + selectedPatient,
+      },
+      {
+        id: 'breadcrumb_ticket_id',
+        text: selectedPatient,
+        // url: "/MasterHeader#TasksScheduler",
+      },
+      // {
+      //   id: 'breadcrumb_Telemetry',
+      //   text: "Telemetry",
+      //   url: "/MasterHeader#TaskTelemetry",
+      // }
+    ];
+
+    new ej.navigations.Breadcrumb({
+      items: items,
+      enableNavigation: true
+    }, '#breadcrumb');
+    var acrdnObj = new ej.navigations.Accordion({
+      expandMode: 'Single',
+      items: [
+        { header: 'Integrated Summary (including attachments)', content: '#acc_summary', expanded: false },
+        { header: 'Root Cause Analysis (Who, What, When, Where, Why + How)', content: '#acc_fivewh' },
+        { header: 'Events Timeline', content: '#acc_timeline' },
+        { header: 'Sentiment Trend', content: '#acc_sentscore' }
+      ]
+    });
+    //Render initialized Accordion component
+    acrdnObj.appendTo('#Accordion_Nested');
+    function takeScreenshot(elementId) {
+      let screenshotTarget = document.getElementById(elementId);
+
+      html2canvas(screenshotTarget, {
+        height: screenshotTarget.scrollHeight, windowHeight: screenshotTarget.scrollHeight
+      }).then((canvas) => {
+        const base64image = canvas.toDataURL("image/png");
+        // Remove the data URL prefix ('data:image/png;base64,')
+        const base64Data = base64image.replace(/^data:image\/png;base64,/, '');
+
+        // Send the base64 data to the server (using Fetch API or XMLHttpRequest)
+        fetch('/save_screenshot', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ data: base64Data, title: '5WH Analysis' })
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log('Screenshot saved successfully:', data.message);
+            document.getElementById("addToResp").style.display = "none";
+            document.getElementById("addToRespLoading").style.display = "block";
+          })
+          .catch(error => {
+            console.error('Error saving screenshot:', error);
+          });
+
+      });
+    }
+    function takeScreenshot2(elementId) {
+      const element = document.getElementById(elementId);
+
+      const canvas = document.createElement('canvas');
+      canvas.width = element.offsetWidth;
+      canvas.height = element.offsetHeight;
+
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(element, 0, 0);
+
+      const dataURL = canvas.toDataURL('image/png');
+
+      // Remove the data URL prefix ('data:image/png;base64,')
+      const base64Data = dataURL.replace(/^data:image\/png;base64,/, '');
+
+      // Send the base64 data to the server (using Fetch API or XMLHttpRequest)
+      fetch('/save_screenshot', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ data: base64Data })
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log('Screenshot saved successfully:', data.message);
+        })
+        .catch(error => {
+          console.error('Error saving screenshot:', error);
+        });
+    }
+
+
+    function getInsuranceData() {
+
+    dataprompt = document.getElementById('ptSummary').innerHTML;
+    // dataprompt="I have chroncic arithrities in left leg. Can u suggest health insurance policies";
+  
+
+    console.log(dataprompt)
+    if (dataprompt) {
+      Swal.fire({ title: "getting Insurance details..please wait" });
+      Swal.showLoading();
+      setTimeout(() => {
+      let paramsObj = {};
+        paramsObj.dataprompt = dataprompt;
+    //     paramsObj.userName = userName;
+      let url = "/InsuranceService?dbParams=" + JSON.stringify(paramsObj);
+        fetch(url)
+          .then((response) => response.json())
+          .then((data) => {
+            // var timelineData = data;
+            console.log(data)
+            
+
+        const modalBody = document.getElementById('insurancebody');
+        let htmlContent = '';
+
+        data.forEach(item => {
+            htmlContent += `
+                <div class="policy-card">
+                    <h2 class="policy-name">${item.PolicyName}</h2>
+                    <p class="reason">${item.Reason}</p>
+                </div>
+            `;
+        });
+
+        modalBody.innerHTML = htmlContent;
+ 
+            Swal.close();
+            document.getElementById("insuranceBtn").click();
+
+          });
+      }, 100);
+     
+
+      }else {
+      alert("Please trigger Insights.");
+    }
+  }
+
+    var aiFilePath = "";
+    var userName = localStorage.getItem("UserName");
+    // var currentWsp = localStorage.getItem("CurrentWsp");
+    var patientsList = [];
+
+    var converter = new showdown.Converter({ extensions: ["table"] });
+    function sleep(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+    var selectedDomain = "";
+    let summaryObj = null;
+    // let selectedFilesForLLM = [];
+
+    let selectedFolder = "";
+
+    var ptData = [];
+
+
+    function generateTimeline(timelineData) {
+      $("#timelineView").html("");
+      for (let i = 0; i < timelineData.length; i++) {
+        tObj = timelineData[i];
+        let tClass = "left";
+        let tIcon = "";
+        if (tObj["EventType"] == "Visit") tIcon = "docvisit.jpeg";
+        else if (tObj["EventType"].includes("Lab")) tIcon = "diagnosis.png";
+        else if (tObj["EventType"].includes("Medication"))
+          tIcon = "medicine.jpeg";
+        else if (tObj["EventType"] == "Surgery") tIcon = "surgery.jpeg";
+        else tIcon = "docvisit.jpeg";
+        if (i % 2 == 0) tClass = "left";
+        else tClass = "right";
+        let substr = tObj["EventDescription"].substr(0, 40);
+        // console.log(substr);
+        let tooltip_html = converter.makeHtml(tObj["EventDescription"]);
+        let tHtml = `<div class="tcontainer ${tClass}">
+                        <div class="date">${tObj["EventDate"]}</div>
+                        <img class="icon" src="static/CDN/images/${tIcon}"></img>
+                        <div class="content">
+                          <h2>${tObj["EventType"]}</h2>
+                          <div class="">
+                            ${substr}
+                          </div>
+                        </div>
+                      </div>`;
+        $("#timelineView").append(tHtml);
+      }
+    }
+    var timelineHtml;
+    // initialize AutoComplete component
+
+    function highlight(
+      elem,
+      keywords,
+      caseSensitive = false,
+      cls = "highlight"
+    ) {
+      const flags = caseSensitive ? "g" : "gi";
+      // Sort longer matches first to avoid
+      // highlighting keywords within keywords.
+      keywords.sort((a, b) => b.length - a.length);
+      Array.from(elem.childNodes).forEach((child) => {
+        ///let rexp =;
+        //console.log(rexp);
+        const keywordRegex = RegExp(keywords.join("|"), flags);
+        console.log(keywordRegex);
+        if (child.nodeType !== 3) {
+          // not a text node
+          highlight(child, keywords, caseSensitive, cls);
+        } else if (keywordRegex.test(child.textContent)) {
+          const frag = document.createDocumentFragment();
+          let lastIdx = 0;
+          child.textContent.replace(keywordRegex, (match, idx) => {
+            const part = document.createTextNode(
+              child.textContent.slice(lastIdx, idx)
+            );
+            const highlighted = document.createElement("span");
+            highlighted.textContent = match;
+            highlighted.classList.add(cls);
+            frag.appendChild(part);
+            frag.appendChild(highlighted);
+            lastIdx = idx + match.length;
+          });
+          const end = document.createTextNode(child.textContent.slice(lastIdx));
+          frag.appendChild(end);
+          child.parentNode.replaceChild(frag, child);
+        }
+      });
+    }
+
+    function getSummary() {
+      Swal.close();
+      Swal.fire({ title: "getting insights..please wait" });
+      Swal.showLoading();
+      setTimeout(() => {
+        // $("#timelineinfo")[0].style.display = "none";
+        $("#ptSummary")[0].innerText = "";
+        $("#ptAnalysis")[0].innerText = "";
+        let paramsObj = {};
+        paramsObj.selectedPatient = selectedPatient;
+        paramsObj.domainName = "";
+        paramsObj.userName = userName;
+        paramsObj.wspName = "";
+        let url = "/gemini_results?dbParams=" + JSON.stringify(paramsObj);
+        fetch(url)
+          .then((response) => response.json())
+          .then((data) => {
+            summaryObj = data;
+            inputTokens = summaryObj.InputTokens;
+            outputTokens = summaryObj.OutputTokens;
+            // renderTokens();
+            summaryObj.Emotion = JSON.parse(
+              data.Emotion.match(/\{([^]+)\}/g)[0]
+            ).Emotion;
+            summaryObj.EmotionWords = JSON.parse(
+              data.EmotionWords.match(/\{([^]+)\}/g)[0]
+            ).EmotionWords;
+            summaryObj.Tone = JSON.parse(
+              data.Tone.match(/\{([^]+)\}/g)[0]
+            ).Tone;
+            summaryObj.ToneWords = JSON.parse(
+              data.ToneWords.match(/\{([^]+)\}/g)[0]
+            ).ToneWords;
+            summaryObj.Sentiment = JSON.parse(
+              data.Sentiment.match(/\{([^]+)\}/g)[0]
+            ).Sentiment;
+            summaryObj.SentimentWords = JSON.parse(
+              data.SentimentWords.match(/\{([^]+)\}/g)[0]
+            ).SentimentWords;
+            summaryObj.EnglishMaturity = JSON.parse(
+              data.EnglishMaturity.match(/\{([^]+)\}/g)[0]
+            ).EnglishMaturity;
+            summaryObj.EngMatWords = JSON.parse(
+              data.EngMatWords.match(/\{([^]+)\}/g)[0]
+            ).EngMatWords;
+            // summaryObj.Risk = JSON.parse(
+            //   data.Risk.match(/\{([^]+)\}/g)[0]
+            // ).Risk;
+            // summaryObj.RiskWords = JSON.parse(
+            //   data.RiskWords.match(/\{([^]+)\}/g)[0]
+            // ).RiskWords;
+            // summaryObj.Compliance = JSON.parse(
+            //   data.Compliance.match(/\{([^]+)\}/g)[0]
+            // ).Compliance;
+            // summaryObj.ComplianceWords = JSON.parse(
+            //   data.ComplianceWords.match(/\{([^]+)\}/g)[0]
+            // ).ComplianceWords;
+            console.log(data);
+            let summary_html = converter.makeHtml(data.Summary.trim());
+            $("#ptSummary")[0].innerHTML = summary_html;
+            // let fivewh_html = JSON.stringify(data.fivewh);
+            // Create a table element
+            const table = document.createElement('table');
+            table.id = "ptAnalysisTable"
+            table.style.borderCollapse = 'collapse';
+
+            // Create table header row
+            const headerRow = document.createElement('tr');
+            for (const key in data.fivewh) {
+              const th = document.createElement('th');
+              th.textContent = key;
+              th.style.border = '1px solid black';
+              th.style.padding = '5px';
+              headerRow.appendChild(th);
+            }
+            table.appendChild(headerRow);
+
+            // Create table data rows
+            const dataRows = data.fivewh["S#"].length;
+            for (let i = 0; i < dataRows; i++) {
+              const row = document.createElement('tr');
+              for (const key in data.fivewh) {
+                const td = document.createElement('td');
+                td.textContent = data.fivewh[key][i]; // Access values by index
+                td.style.border = '1px solid black';
+                td.style.padding = '5px';
+                row.appendChild(td);
+              }
+              table.appendChild(row);
+            }
+            $("#ptAnalysis")[0].appendChild(table);
+            var separators = ["\\n", "\\s"];
+            var escChar = ["\/", "\+", "\?", "\?", "\(", "\)"];
+
+            // console.log("NER", data.NER);
+
+            Swal.close();
+            var neutralKeywords = [
+              "HAPPINESS",
+              "NEUTRAL",
+              "FORMAL",
+              "PROFICIENT",
+              "MEDIUM"
+            ];
+            var aiHtml = "";
+            var abnormalArray = [];
+            var normalArray = [];
+            var usualArray = [
+              "Emotion",
+              "Sentiment",
+              "Tone",
+              "EnglishMaturity",
+              // "Risk",
+              // "Compliance"
+            ];
+            usualArray.forEach((el) => {
+              if (neutralKeywords.includes(data[el])) normalArray.push(el);
+              else abnormalArray.push(el);
+            });
+            abnormalArray.push(...normalArray);
+            abnormalArray.forEach((el) => {
+              // let anchorHtml = `<b>${el} : </b><a>${data[el]}</a>`;
+              let anchorHtml = `<div class="row"><div class="col-md-5"><b style="width:fit-content">${el}</b></div><div class="col-md-1"><b>:</b></div><div class="col-md-6"><button type="button" class="btn btn-link aibtn"
+                      style="width: 160px;text-align: left;font-size: 14px;margin-top:-10px" onclick="openSummaryHighlight(this)" title="${el}">${data[el]} </button></div></div>`;
+              aiHtml += anchorHtml;
+            });
+            $("#aiHighlights").html(aiHtml);
+
+            summaryObj.SentScore = JSON.parse(
+              data.SentimentScores.match(/\[([^]+)\]/)[0]
+            );
+            summaryObj.Timeline = JSON.parse(
+              data.Timeline.match(/\[([^]+)\]/)[0]
+            );
+            generateTimeline(summaryObj.Timeline);
+            document.getElementById("sentscore").innerHTML = '<div id="sentscorechart" style="height: 400px !important; overflow-y: auto;"><div/>';
+            renderLineChart("sentscorechart", summaryObj.SentScore, "EventDate", "SentimentScore")
+
+          });
+      }, 100);
+    }
+    function openSummaryHighlight(e) {
+      $("#highlightSummary")[0].innerText = summaryObj.completeReport;
+      let reviewTxt = "";
+      let keywords = [];
+      var separators = ["-", "\\n", "\\*"];
+      let imgReq = "";
+      if (e.title.includes("Emotion")) {
+        if (summaryObj.Emotion == "Happiness") imgReq = "happiness.jpeg";
+        else if (summaryObj.Emotion == "Disgust") imgReq = "disgust.png";
+        else if (summaryObj.Emotion == "Anger") imgReq = "anger.jpeg";
+        else if (summaryObj.Emotion == "Fear") imgReq = "fear.png";
+        else if (summaryObj.Emotion == "Surprise") imgReq = "surprise.j[g]";
+        else imgReq = "sadness.png";
+        reviewTxt = `<span><img src="static/CDN/images/${imgReq}" style="width:80px;height:80px;" /><span style="font-size:20px"> Overall emotion is <span style="background-color:yellow"><b>${summaryObj.Emotion.toUpperCase()}</b></span></span></span>`;
+        // keywords = summaryObj.EmotionWords.split(
+        //   new RegExp(separators.join("|"), "g")
+        // ).filter((x) => x.length > 2);
+        keywords = summaryObj.EmotionWords;
+        $("#highlightLabel").html("Analysing emotion");
+      } else if (e.title.includes("Sentiment")) {
+        if (summaryObj.Sentiment == "Positive") imgReq = "Positive.png";
+        else if (summaryObj.Sentiment == "Negative") imgReq = "Negative.png";
+        else imgReq = "Neutral.png";
+        reviewTxt = `<span><img src="static/CDN/images/${imgReq}" style="width:80px;height:80px;" /><span style="font-size:20px"> Overall sentiment is <span style="background-color:yellow"><b>${summaryObj.Sentiment.toUpperCase()}</b></span></span></span>`;
+        // keywords = summaryObj.SentimentWords.split(
+        //   new RegExp(separators.join("|"), "g")
+        // ).filter((x) => x.length > 2);
+        keywords = summaryObj.SentimentWords;
+        $("#highlightLabel").html("Analysing sentiment");
+      } else if (e.title.includes("Tone")) {
+        reviewTxt = `<span><span style="font-size:20px">Overall Tone is <span style="background-color:yellow"><b>${summaryObj.Tone.toUpperCase()}</b></span></span></span>`;
+        // keywords = summaryObj.ToneWords.split(
+        //   new RegExp(separators.join("|"), "g")
+        // ).filter((x) => x.length > 2);
+        keywords = summaryObj.ToneWords;
+        $("#highlightLabel").html("Analysing tone");
+      } else if (e.title.includes("EnglishMaturity")) {
+        if (summaryObj.EnglishMaturity.toUpperCase() == "AVERAGE")
+          imgReq = "Average.png";
+        else if (summaryObj.EnglishMaturity.toUpperCase() == "MEDIUM")
+          imgReq = "Medium.png";
+        else if (summaryObj.EnglishMaturity.toUpperCase() == "LOW")
+          imgReq = "low.png";
+        else imgReq = "Proficient.png";
+        reviewTxt = `<span><img src="static/CDN/images/${imgReq}" style="width:200px;height:50px;" /><span style="font-size:20px"> Overall level of English Maturity is <span style="background-color:yellow"><b>${summaryObj.EnglishMaturity.toUpperCase()}</b></span></span></span>`;
+        // keywords = summaryObj.EngMatWords.split(
+        //   new RegExp(separators.join("|"), "g")
+        // ).filter((x) => x.length > 2);
+        keywords = summaryObj.EngMatWords;
+        $("#highlightLabel").html("Analysing english maturity");
+      } else if (e.title.includes("Risk")) {
+        if (summaryObj.Risk.toUpperCase() == "HIGH")
+          imgReq = "rhigh.png";
+        else if (summaryObj.Risk.toUpperCase() == "MEDIUM")
+          imgReq = "rmedium.png";
+        else if (summaryObj.Risk.toUpperCase() == "LOW")
+          imgReq = "rlow.png";
+        reviewTxt = `<span><img src="static/CDN/images/${imgReq}" style="width:15%;" /><span style="font-size:20px"> Overall level of Risk is <span style="background-color:yellow"><b>${summaryObj.Risk.toUpperCase()}</b></span></span></span>`;
+        // keywords = summaryObj.EngMatWords.split(
+        //   new RegExp(separators.join("|"), "g")
+        // ).filter((x) => x.length > 2);
+        keywords = summaryObj.RiskWords;
+        $("#highlightLabel").html("Analysing Risk Level");
+      } else if (e.title.includes("Compliance")) {
+        if (summaryObj.Compliance.toUpperCase() == "HIGH")
+          imgReq = "rhigh.png";
+        else if (summaryObj.Compliance.toUpperCase() == "MEDIUM")
+          imgReq = "rmedium.png";
+        else if (summaryObj.Compliance.toUpperCase() == "LOW")
+          imgReq = "rlow.png";
+        reviewTxt = `<span><img src="static/CDN/images/${imgReq}" style="width:15%;" /><span style="font-size:20px"> Overall level of Compliance is <span style="background-color:yellow"><b>${summaryObj.Compliance.toUpperCase()}</b></span></span></span>`;
+        // keywords = summaryObj.EngMatWords.split(
+        //   new RegExp(separators.join("|"), "g")
+        // ).filter((x) => x.length > 2);
+        keywords = summaryObj.ComplianceWords;
+        $("#highlightLabel").html("Analysing Compliance Level");
+      }
+      $("#finalReview")[0].innerHTML = reviewTxt;
+      keywords = keywords.map((x) => {
+        return x.trim(" ");
+      });
+      highlight(document.getElementById("highlightSummary"), keywords);
+      $("#highlightBtn").click();
+    }
+
+
+    $("#textRead").click(function () {
+      debugger;
+      $("#speechMenu").show();
+      $("#textRead").hide();
+      var msg = new SpeechSynthesisUtterance();
+      msg.text = $("#ptSummary")[0].innerText;
+      // var voices = window.speechSynthesis.getVoices();
+      // msg.voice = voices[10];
+      window.speechSynthesis.speak(msg);
+    });
+    function pause() { }
+
+    function stop() {
+      speechSynthesis.cancel();
+    }
+    function resume() {
+      speechSynthesis.resume();
+    }
+    function generateTimeline(timelineData) {
+      $("#timelineView").html("");
+      for (let i = 0; i < timelineData.length; i++) {
+        let tObj = timelineData[i];
+        let tClass = "left";
+        let tIcon = "";
+        if (tObj["EventType"] == "Visit") tIcon = "docvisit.jpeg";
+        else if (tObj["EventType"].includes("Lab")) tIcon = "diagnosis.png";
+        else if (tObj["EventType"].includes("Medication"))
+          tIcon = "medicine.jpeg";
+        else if (tObj["EventType"] == "Surgery") tIcon = "surgery.jpeg";
+        else tIcon = "docvisit.jpeg";
+        if (i % 2 == 0) tClass = "left";
+        else tClass = "right";
+        let substr = tObj["EventDescription"].substr(0, 300);
+        // console.log(substr);
+        let tooltip_html = converter.makeHtml(tObj["EventDescription"]);
+        let tHtml = `<div class="tcontainer ${tClass}">
+                        <div class="date">${tObj["EventDate"]}</div>
+                        <img class="icon" src="static/CDN/images/${tIcon}"></img>
+                        <div class="content">
+                          <h2>${tObj["EventType"]}</h2>
+                          <div class="ctooltip">
+                            ${substr}<span class="ctooltiptext">${tooltip_html}</span>
+                          </div>
+                        </div>
+                      </div>`;
+        $("#timelineView").append(tHtml);
+      }
+    }
+    var timelineHtml;
+    // initialize AutoComplete component
+
+
+    // function getTimeline() {
+    //   Swal.close();
+    //   Swal.fire({ title: "getting timeline..please wait" });
+    //   Swal.showLoading();
+    //   setTimeout(() => {
+    //     let paramsObj = {};
+    //     paramsObj.selectedPatient = selectedPatient;
+    //     paramsObj.userName = userName;
+    //     // paramsObj.userName = userName;
+    //     // paramsObj.wspName = currentWsp;
+    //     let url = "/get_timeline?dbParams=" + JSON.stringify(paramsObj);
+    //     fetch(url)
+    //       .then((response) => response.json())
+    //       .then((data) => {
+    //         var timelineData = data;
+    //         //JSON.parse(data.Timeline);
+
+    //         generateTimeline(timelineData);
+    //         Swal.close();
+    //       });
+    //   }, 100);
+    // }
+
+    function renderLineChart(element, chartdata, xcolumn, ycolumn) {
+      var chartdata3 = [];
+      am5.ready(function () {
+        // Create root4 element
+
+        var root4 = am5.Root.new(element);
+        // Set themes
+        // https://www.amcharts.com/docs/v5/concepts/themes/
+        root4.setThemes([
+          am5themes_Animated.new(root4)
+        ]);
+
+        var colorSet = am5.ColorSet.new(root4, {});
+        $.each(chartdata, function (k, v) {
+          if (v[ycolumn] == -1) {
+            chartdata3.push({
+              "EventDate": v[xcolumn], "SentimentScore": parseFloat(v[ycolumn]), "bulletSettings": {
+                "fill": "red"
+              }
+            });
+          }
+          else if (v[ycolumn] == 1) {
+            chartdata3.push({
+              "EventDate": v[xcolumn], "SentimentScore": parseFloat(v[ycolumn]), "bulletSettings": {
+                "fill": "green"
+              }
+            });
+          }
+          else {
+            chartdata3.push({
+              "EventDate": v[xcolumn], "SentimentScore": parseFloat(v[ycolumn]), "bulletSettings": {
+                "fill": colorSet.getIndex(0)
+              }
+            });
+          }
+
+        });
+
+
+        var data = chartdata3;
+        console.log(chartdata3);
+        // Create chart
+        // https://www.amcharts.com/docs/v5/charts/xy-chart/
+        var chart = root4.container.children.push(am5xy.XYChart.new(root4, {
+          panX: true,
+          panY: true,
+          wheelX: "panX",
+          wheelY: "zoomX",
+          layout: root4.verticalLayout
+        }));
+
+        // Add cursor
+        // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
+        var cursor = chart.set("cursor", am5xy.XYCursor.new(root4, {
+          behavior: "none"
+        }));
+        cursor.lineY.set("visible", false);
+
+
+
+        // The data
+
+
+        // Create axes
+        // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+        var xRenderer = am5xy.AxisRendererX.new(root4, {});
+        xRenderer.grid.template.set("location", 0.5);
+        xRenderer.labels.template.setAll({
+          location: 0.5,
+          multiLocation: 0.5
+        });
+
+        var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root4, {
+          categoryField: xcolumn,
+          renderer: xRenderer,
+          tooltip: am5.Tooltip.new(root4, {})
+        }));
+
+        xAxis.data.setAll(data);
+
+        var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root4, {
+          maxPrecision: 0,
+          renderer: am5xy.AxisRendererY.new(root4, {})
+        }));
+
+        var series = chart.series.push(am5xy.LineSeries.new(root4, {
+          xAxis: xAxis,
+          yAxis: yAxis,
+          valueYField: ycolumn,
+          categoryXField: xcolumn,
+          tooltip: am5.Tooltip.new(root4, {
+            labelText: "{valueY}",
+            dy: -5
+          })
+        }));
+
+        // series.strokes.template.setAll({
+        //     templateField: "strokeSettings",
+        //     strokeWidth: 2
+        // });
+
+        // series.fills.template.setAll({
+        //     visible: true,
+        //     fillOpacity: 0.5,
+        //     templateField: "fillSettings"
+        // });
+
+
+        series.bullets.push(function () {
+          return am5.Bullet.new(root4, {
+            sprite: am5.Circle.new(root4, {
+              templateField: "bulletSettings",
+              radius: 5
+            })
+          });
+        });
+
+        series.data.setAll(data);
+        series.appear(1000);
+
+        // Add scrollbar
+        // https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
+        chart.set("scrollbarX", am5.Scrollbar.new(root4, {
+          orientation: "horizontal",
+          marginBottom: 20
+        }));
+
+        // Make stuff animate on load
+        // https://www.amcharts.com/docs/v5/concepts/animations/
+        chart.appear(1000, 100);
+
+      });
+    }
+
+  </script>
+</body>
+
+{% endblock %}

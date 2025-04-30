@@ -1,0 +1,573 @@
+{% extends "MasterHeader.html" %} {% block content %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spectra - EntitiesList</title>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
+
+    <script src="//ej2.syncfusion.com/javascript/demos/grid/detail-template/datasource.js"
+        type="text/javascript"></script>
+    <script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js" type="text/javascript"></script>
+    <link href="https://cdn.syncfusion.com/ej2/material.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"
+        type="text/javascript"></script>
+        <script type="text/javascript" src="static/CDN/scripts/events-library.js"></script>
+    <style>
+        body {
+            touch-action: none;
+        }
+
+        .control-section {
+            margin-top: 20px;
+        }
+
+        .tab-count {
+            margin-left: 2px;
+            background-color: tomato;
+            padding: 0 3px 0 3px;
+            border-radius: 6px;
+            color: snow;
+        }
+        .e-detailindentcell{
+            border-color: black !important;
+        }
+
+        .e-detailcell{
+            border-color: black !important;
+        }
+
+    </style>
+    </head>
+
+    <body>
+        <div class="row">
+            <div class="col-md-11"><ul id="breadcrumb"></ul></div>
+            <div class="col-md-1"><i class="bi bi-info-circle" style="float: right;
+              margin-right: 20px;
+              margin-top: 10px;
+              font-size: x-large;
+              color: deepskyblue;cursor: pointer;" onclick="loadArchitectureModal('skagent.png','Semantic Kernel Agentic Framework with Function calling')"></i>
+            </div>
+        </div>
+
+        <div style="margin: 2em 2em 0 2em; ">
+
+            <div id="entityTabs">
+                <div class="e-tab-header">
+                    <div>Data(ETL Loads, Cases, Attachments etc.,)</div>
+                    <div>Data for Review<div id="reviewEntityCount" class="tab-count">0
+                        </div>
+                    </div>
+                </div>
+                <div class="e-content">
+                    <div class="content-wrapper">
+                        <div id="Grid"></div>
+                    </div>
+                    <div class="content-wrapper">
+                        <div id="reviewGrid"></div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 2em;">
+                <button type="button" class="btn btn-primary mx-3" id="refreshStatsBtn" style="float: right;" onclick="window.location.href='/EntitiesStatisticalInsights';"><span
+                        class="appText"></span>&nbsp;Statistics </button>
+                <button class="btn btn-primary" id="refreshCaseBtn" style="float: right;" onclick="refreshEntities()">Refresh&nbsp;<span
+                        class="appText"></span></button>
+            </div>
+        </div>
+
+        <div class="modal fade" id="attachmentsModal" tabindex="-1" aria-labelledby="attachmentModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="attachmentModalLabel"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div id="attachmentContent">
+                            <iframe width="100%" height="530vh" frameborder="0"></iframe>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" style="display:none"
+                            data-bs-dismiss="modal">Close</button>
+
+                        <!-- <button type="button"onclick="updateFinalQuery()" class="btn btn-secondary" style="display:none" data-bs-dismiss="modal">Close</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary" style="display: none" data-bs-toggle="modal"
+            data-bs-target="#menuViewerModal" id="menuViewerBtn"></button>
+        <div class="modal fade" id="menuViewerModal" tabindex="-1" aria-labelledby="menuViewerLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="searchEntityLabel">
+                            Analysing ticket and finding a Resolution Category
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="menuViewerBody">
+                            <div class="col-lg-12">
+                                <div class="control-wrapper">
+                                    <div class="row">
+                                        <iframe src="" id="menuViewer" style="width: 100%" height="550"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary" style="display: none" data-bs-toggle="modal"
+            data-bs-target="#kgViewerModal" id="kgViewerBtn"></button>
+        <div class="modal fade" id="kgViewerModal" tabindex="-1" aria-labelledby="kgViewerLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="kgViewerLabel">
+                            Analysing ticket and finding a Resolution Category
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="kgViewerBody">
+                            <div class="col-lg-12">
+                                <div class="control-wrapper">
+                                    <div class="row">
+                                        <iframe src="" id="kgViewer" style="width: 100%" height="550"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script id="detailtemplate" type="text/x-template">
+            <div class="e-tab-section " style="padding: 1em 5em 1em 5em">
+                <div id="tab" >
+                    <div class="e-tab-header">
+                        <div>Content</div>
+                        <div><img class="me-1" src="static/CDN/images/riskicon.png" style="width: 28px;margin-top: -6px;">Risk Assessment</div>
+                        <div><img class="me-1" src="static/CDN/images/compliant.png" style="width:28px;margin-top: -6px;"/>Compliance Assessment and UEBA</div>
+                        <div><img class="me-1" src="static/CDN/images/sentimentanalysis.png" style="width:28px;margin-top: -6px;"/>Sentiment Assessment</div>
+                        <div><img class="me-1" src="static/CDN/images/attachments.png" style="width:28px;margin-top: -6px;"/>Attachments</div>
+                    </div>
+                    <div class="e-content " style="overflow-y: hidden">
+                        
+                        <div>
+                            <div id="contentSection" ></div>
+                        </div>
+                        <div>
+                            <div id="RiskSection"></div>
+                        </div>
+                        <div>
+                            <div id="ComplianceSection"></div>
+                        </div>
+                        <div>
+                            <div id="SentimentSection"></div>
+                        </div>
+                        <div >
+                            <div id="attachmentGrid"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.0.0/showdown.min.js"></script>
+        <!-- <script src="static/CDN/panacea/assets/js/jquery.min.js"></script> -->
+        <script id="filetypeTemplate" type="text/x-template">
+            ${getFileType(data)}
+        </script>
+        <script id="titleTemplate" type="text/x-template">
+            ${getTitleTemplate(data)}
+        </script>
+        <script>
+            const urlParams = new URLSearchParams(window.location.search);
+            var userName = "slope.expedition@gmail.com";
+            var selectedMultiApp = "";
+            if (urlParams.has('app')) {
+                selectedMultiApp = urlParams.get('app');
+            }
+            else {
+                selectedMultiApp = "Spectra";
+            }
+            if (selectedMultiApp == "Spectra") {
+                $("#navheadertext")[0].innerText = "DDR - Data Detection and Response";
+                
+            }
+            else if (selectedMultiApp == "Sentinel") {
+                $("#navheadertext")[0].innerText = "Spectra - My Entities";
+                
+            }
+            else if (selectedMultiApp == "Panacea") {
+                $("#navheadertext")[0].innerText = "Spectra - My Patients";
+                
+            }
+            var items = [
+      {
+        iconCss: 'e-icons e-home',
+        url: "/",
+      },
+      {
+        id: 'breadcrumb_spectra',
+        text: "Spectra",
+        url: "/",
+
+      },
+      {
+        id: 'breadcrumb_my_entities',
+        text: "My Entities",
+        url: "/EntitiesList",
+      }
+    ];
+
+    new ej.navigations.Breadcrumb({
+      items: items,
+      enableNavigation: true
+    }, '#breadcrumb');
+            // $("#navheadertext")[0].innerText = "Spectra - My Tickets"
+            var email = localStorage.getItem("loginemail");
+            var pwd = localStorage.getItem("loginpwd");
+            var maildata = [];
+            var selectedmail = [];
+            var selectedattachments = [];
+            var fetchEntitiesUrl = `/get_entities`;
+            Swal.fire({ title: "fetching Entities..please wait" });
+            Swal.showLoading();
+            setTimeout(async () => {
+                fetch(fetchEntitiesUrl)
+                    .then(res => res.json())
+                    .then(entity_res => {
+                        console.log(entity_res);
+                        maildata = entity_res;
+                        grid.dataSource = entity_res.filter(x => x.ForReview != "True");
+                        insertTelemetry(EVENT_SOURCE_SPECTRA, MYENTITIES_LOAD_ENTITIES_GRID, "Entities grid loaded successfully", JSON.stringify({ "Status": "Success"  }));
+
+                        reviewGrid.dataSource = entity_res.filter(x => x.ForReview === "True");
+                        insertTelemetry(EVENT_SOURCE_SPECTRA, MYENTITIES_LOAD_REVIEW_GRID, "Entities review grid loaded successfully", JSON.stringify({ "Status": "Success" }));
+
+                        document.getElementById("reviewEntityCount").innerHTML = reviewGrid.dataSource.length
+                        grid.refresh();
+                        Swal.close();
+                    });
+            }, 100);
+
+            const myEntityTabObj = new ej.navigations.Tab({
+                animation: {
+                    previous: { effect: 'None', duration: 0, easing: '' },
+                    next: { effect: 'None', duration: 0, easing: '' }
+                },
+                selected: tabChangeHandler
+
+            });
+            myEntityTabObj.appendTo('#entityTabs');
+
+
+            function tabChangeHandler(args) {
+                if (args.selectedIndex === 1) {
+                    reviewGrid.refresh()
+                }
+            }
+            const converter = new showdown.Converter();
+
+            const reviewGrid = new ej.grids.Grid({
+                dataSource: [],
+                detailTemplate: '#detailtemplate',
+                commandClick: reviewCommandClick,
+                // height: 600,
+                allowSorting: true,
+                // allowFiltering: true,
+                allowPaging: true,
+                pageSettings: { pageSize: 10 },
+                sortSettings: { columns: [{ field: 'LastModifiedOn', direction: 'Descending' }] },
+                columns: [
+                    { field: 'EntityId', headerText: 'Id', width: 90 },
+                    { field: 'LastModifiedOn', headerText: 'Last Modified On', width: 100 },
+                    { field: 'Title', headerText: 'Title', template: "#titleTemplate", width: 140 },
+                    { field: 'Content', headerText: 'Content', width: 200, visible: false },
+                    { field: 'Summary', headerText: 'Summary', width: 130, visible: false },
+                    { field: 'Severity', headerText: 'Severity', width: 70 },
+                    { field: 'Priority', headerText: 'Priority', width: 70 },
+                    { field: 'CreatorEmail', headerText: 'Creator Email', width: 120, visible: false },
+                    { field: 'AssigneeEmail', headerText: 'Assignee', width: 120 },
+                    { field: 'CreatedOn', headerText: 'Created On', width: 100 },
+                    { field: 'RiskAssessment', headerText: 'Risk Assessment', width: 100, visible: false },
+                    { field: 'ComplianceAssessment', headerText: 'Compliance Assessment', width: 100, visible: false },
+                    { field: 'SentimentAssessment', headerText: 'Sentiment Assessment', width: 100, visible: false },
+                    {
+                        headerText: 'Action', width: 80, commands: [
+                            { type: "review", buttonOption: { iconCss: "e-eye e-medium e-icons e-error", cssClass: 'e-flat' } },
+                            { type: "search", buttonOption: { iconCss: "e-check e-medium e-icons", cssClass: 'e-flat' } },
+                            { type: "analyse", buttonOption: { iconCss: "e-repeat e-medium e-icons", cssClass: 'e-flat' } }
+
+                        ],
+                    }],
+                detailDataBound: entityDetailsViewer
+
+            });
+            reviewGrid.appendTo('#reviewGrid');
+
+            var grid = new ej.grids.Grid({
+                dataSource: [],
+                detailTemplate: '#detailtemplate',
+                commandClick: commandClick,
+                // height: 600,
+                allowSorting: true,
+                // allowFiltering: true,
+
+                allowPaging: true,
+                pageSettings: { pageSize: 10 },
+                sortSettings: { columns: [{ field: 'LastModifiedOn', direction: 'Descending' }] },
+                columns: [
+                    { field: 'EntityId', headerText: 'Id', width: 90 },
+                    { field: 'LastModifiedOn', headerText: 'Last Modified On', width: 100 },
+                    { field: 'Title', headerText: 'Title', template: "#titleTemplate", width: 140 },
+                    { field: 'Content', headerText: 'Content', width: 200, visible: false },
+                    { field: 'Summary', headerText: 'Summary', width: 130, visible: false },
+                    { field: 'Severity', headerText: 'Severity', width: 70 },
+                    { field: 'Priority', headerText: 'Priority', width: 70 },
+                    { field: 'CreatorEmail', headerText: 'Creator Email', width: 120, visible: false },
+                    { field: 'AssigneeEmail', headerText: 'Assignee', width: 120 },
+                    { field: 'CreatedOn', headerText: 'Created On', width: 100 },
+                    { field: 'RiskAssessment', headerText: 'Risk Assessment', width: 100, visible: false },
+                    { field: 'ComplianceAssessment', headerText: 'Compliance Assessment', width: 100, visible: false },
+                    { field: 'SentimentAssessment', headerText: 'Sentiment Assessment', width: 100, visible: false },
+                    {
+                        headerText: 'Action', width: 100, commands: [
+                            { type: "details", buttonOption: { iconCss: "e-eye e-medium e-icons e-success", cssClass: 'e-flat' } },
+                            { type: "search", buttonOption: { iconCss: "e-check e-medium e-icons", cssClass: 'e-flat' } },
+                            { type: "analyse", buttonOption: { iconCss: "e-repeat e-medium e-icons", cssClass: 'e-flat' } }
+                        ],
+                    }],
+                detailDataBound: entityDetailsViewer
+
+            });
+            grid.appendTo('#Grid');
+
+            function entityDetailsViewer(args) {
+                const tabObj = new ej.navigations.Tab({
+                    animation: {
+                        previous: { effect: 'None', duration: 0, easing: '' },
+                        next: { effect: 'None', duration: 0, easing: '' }
+                    }
+                });
+                tabObj.appendTo(args.detailElement.querySelector('#tab'));
+                loadAttachmentsGrid(args)
+                selectedEnitity = maildata.filter(function (m) { return m.EntityId === rowData.EntityId; })[0];
+
+                args.detailElement.querySelector("#contentSection").innerHTML =
+                    `
+                        <div  style="padding: 3px">
+                        ${converter.makeHtml(selectedEnitity.Content)}
+                        </div>
+                        `
+
+
+                // Convert Markdown to HTML
+
+                args.detailElement.querySelector("#RiskSection").innerHTML =
+                    `
+                        <div >
+                        ${converter.makeHtml(selectedEnitity.RiskAssessment)}
+                        </div>
+                        `
+                args.detailElement.querySelector("#ComplianceSection").innerHTML =
+                    `
+                        <div class="top-message-bar">
+                            <span class="message-text">
+                                <div>
+                                    <b>User and Entity Behavior Analytics (UEBA):</b>
+                                    <span class="margin-left:20px;">Using machine learning to establish baseline behavior patterns for users and entities, and then detecting anomalies that could indicate malicious activity</span>
+                                </div>
+                            </span>
+                            <span class="close-icon" onclick="closeMessageBar()">&#x2715;</span>
+                        </div>
+                        <div >
+                        ${converter.makeHtml(selectedEnitity.ComplianceAssessment)}
+                        </div>
+                        `
+                args.detailElement.querySelector("#SentimentSection").innerHTML =
+                    `
+                        <div >
+                        ${converter.makeHtml(selectedEnitity.SentimentAssessment)}
+                        </div>
+                        `
+
+                        insertTelemetry(EVENT_SOURCE_SPECTRA, MYENTITIES_LOAD_ASSESSMENT_GRID, "Assessment Grid Loaded successfully", JSON.stringify({ "": ""  }));
+
+            }
+
+            function commandClick(args) {
+                if (args.commandColumn.type == "details") {
+                    window.open(`/EntityAttachmentSummaryAction?app=${selectedMultiApp}&id=${args.rowData.EntityId}&userName=${userName}`, "_blank");
+                }
+                else if (args.commandColumn.type == "search") {
+                    window.open(`/EntityResolutionAction?app=${selectedMultiApp}&id=${args.rowData.EntityId}`, "_blank");
+                }
+                else if (args.commandColumn.type == "analyse") {
+                    // $("#menuViewer")[0].src="/MenuNavigation?id="+args.rowData.EntityId;
+                    // $("#menuViewerBtn").click();
+                    // $("#kgViewer")[0].src="/EntityKnowledgeGraph?id="+args.rowData.EntityId;
+                    // $("#kgViewerBtn").click();
+                    window.open("/EntityKnowledgeGraph?id=" + args.rowData.EntityId, "_blank");
+                }
+            }
+            function reviewCommandClick(args) {
+                if (args.commandColumn.type == "review") {
+                    window.open(`/EntityComplianceAction?app=${selectedMultiApp}&id=${args.rowData.EntityId}`, "_blank");
+                }
+                else if (args.commandColumn.type == "search") {
+                    window.open(`/EntityResolutionAction?app=${selectedMultiApp}&id=${args.rowData.EntityId}`, "_blank");
+                }
+                else if (args.commandColumn.type == "analyse") {
+                    window.open("/EntityKnowledgeGraph?id=" + args.rowData.EntityId, "_blank");
+                }
+            }
+            function getFileType(e) {
+                var div = document.createElement('div');
+                var span = document.createElement('span');
+                var icon = document.createElement('i');
+                if (e.AttachmentName.endsWith(".mp4")) {
+                    span.textContent = 'VIDEO';
+                    icon.className = "bi bi-camera-video text-primary fs-3 ms-3 mt-3";
+                }
+                else if (e.AttachmentName.endsWith(".mp3")) {
+                    icon.className = "bi bi-file-earmark-music text-primary fs-3 ms-3 mt-3";
+                    span.textContent = 'AUDIO';
+                }
+                else if (e.AttachmentName.endsWith(".jpg") || e.AttachmentName.endsWith(".png") || e.AttachmentName.endsWith(".jpeg")) {
+                    icon.className = "bi bi-file-earmark-image text-info fs-3 ms-3 mt-3";
+                    span.textContent = 'IMAGE';
+                }
+                else if (e.AttachmentName.endsWith(".csv")) {
+                    icon.className = "bi bi-file-earmark-spreadsheet text-success fs-3 ms-3 mt-3";
+                    span.textContent = 'CSV';
+                }
+                else if (e.AttachmentName.endsWith(".txt")) {
+                    icon.className = "bi bi-file-earmark-text text-secondary fs-3 ms-3 mt-3";
+                    span.textContent = 'TEXT';
+                }
+                else if (e.AttachmentName.endsWith(".pdf")) {
+                    icon.className = "e-icons e-export-pdf text-danger fs-3 ms-3 mt-3";
+                    span.textContent = 'PDF';
+                }
+                else {
+                    icon.className = "bi bi-file-earmark text-secondary fs-3 ms-3 mt-3";
+                    span.textContent = 'DOC';
+                }
+                span.appendChild(icon);
+                div.appendChild(span);
+                return div.outerHTML;
+            };
+
+
+            function getTitleTemplate(e) {
+                var div = document.createElement('div');
+                var span = document.createElement('span');
+                var icon = document.createElement('i');
+                if (e.Title.startsWith("Case")) {
+                    icon.className = "bi bi-envelope-open fs-6 ms-3 mt-3";
+                }
+                else {
+                    icon.className = "bi bi-folder fs-6 ms-3 mt-3";
+                }
+
+                span.appendChild(icon);
+                span.appendChild(document.createTextNode(" " + e.Title));
+                div.appendChild(span);
+                return div.outerHTML;
+            };
+
+
+            const loadAttachmentsGrid = (args) => {
+                rowData = args.data
+                const fetchEntityAttachmentsUrl = `/get_entity_attachments?EntityId=${rowData.EntityId}`;
+                fetch(fetchEntityAttachmentsUrl)
+                    .then(res => res.json())
+                    .then(attachments_res => {
+                        var attachmentGridObj = new ej.grids.Grid({
+                            dataSource: attachments_res,
+                            columns: [
+                                { field: "AttachmentName", headerText: "Name" },
+                                {
+                                    headerText: 'Type', textAlign: 'Right',
+                                    template: '#filetypeTemplate', width: 180
+                                },
+                                { field: "AttachmentSize", headerText: "Size" },
+                                {
+                                    headerText: 'Action', width: 120, commands: [
+                                        { type: "complianceData", buttonOption: { iconCss: "e-protect-sheet e-medium e-icons ", cssClass: 'e-flat' } },
+                                        { type: "cleanseFile", buttonOption: { iconCss: "e-description e-medium e-icons", cssClass: 'e-flat' } }
+                                    ],
+                                }
+                            ],
+                            commandClick: commandClickForAttachments
+                        });
+                        attachmentGridObj.appendTo(args.detailElement.querySelector('#attachmentGrid'));
+                        insertTelemetry(EVENT_SOURCE_SPECTRA, MYENTITIES_LOAD_ATTACHMENT_GRID, "Attachment grid loaded successfully", JSON.stringify({ "Status": "Success"  }));
+
+                    });
+            }
+
+            function commandClickForAttachments(args) {
+                // $('#attachmentsModal').modal('show');
+                if (args.commandColumn.type == "complianceData") {
+                    // $('#attachmentContent').find('iframe').attr('src', `/EntityAICompliance`);
+                    // $('#attachmentModalLabel').html("Entity AI Compliance")
+                    window.open(`/EntityAICompliance`, "_blank");
+                }
+                else if (args.commandColumn.type == "cleanseFile") {
+                    // $('#attachmentContent').find('iframe').attr('src', `/EntityAICleansing`);
+                    // $('#attachmentModalLabel').html("Entity AI Cleansing")
+                    window.open(`/EntityAICleansing`, "_blank");
+                }
+            }
+
+            const refreshEntities = () => {
+                const fetchNewEntitiesUrl = `/refresh_entities?username=${email}&password=${pwd}`;
+                Swal.fire({ title: "Refreshing Entities.. Please wait" });
+                Swal.showLoading();
+                fetch(fetchNewEntitiesUrl)
+                    .then(res => res.json())
+                    .then(entity_refresh_res => {
+                        // grid.dataSource = entity_refresh_res
+                        // grid.refresh()
+                        insertTelemetry(EVENT_SOURCE_SPECTRA, MYENTITIES_REFRESH_ENTITIES, "Entities refreshed successfully", JSON.stringify({ "Entities": "Refreshed"  }));
+
+                        console.log(entity_refresh_res)
+                        fetch(fetchEntitiesUrl)
+                            .then(res => res.json())
+                            .then(entity_res => {
+                                // console.log(res);
+                                maildata = entity_res
+                                // grid.dataSource = entity_res;
+                                grid.dataSource = entity_res.filter(x => x.ForReview != "True");
+                                reviewGrid.dataSource = entity_res.filter(x => x.ForReview === "True");
+                                grid.refresh();
+                                Swal.close();
+                            });
+                    })
+            }
+        </script>
+    </body>
+
+</html>
+{% endblock %}

@@ -1,0 +1,1337 @@
+{% extends "MasterHeader.html" %} {% block content %}
+<title>Spectra - Entity Attachments</title>
+<link href="static/CDN/scripts/timeline.css" rel="stylesheet" />
+<script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+<script src="static/CDN/scripts/jszip.js" type="text/javascript"></script>
+<script src="static/CDN/scripts/jszip.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+  integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/css/index.css">
+<script src="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/index.js"></script>
+<link href="static/CDN/scripts/timeline.css" rel="stylesheet" />
+<link href="static/CDN/scripts/chat.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/showdown-table@1.0.1/dist/showdown-table.min.js"></script>
+<!-- <link rel="stylesheet" href="static/CDN/landing/assets/css/main.css" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"
+  integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"
+  type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.2/dist/sweetalert2.all.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.2/dist/sweetalert2.min.css" />
+<link rel="stylesheet" href="static/CDN/scripts/colored-toasts.css" />
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript"></script>
+
+
+<!--new-->
+<link rel="stylesheet" href="CDN/scripts/style.css" type="text/css" />
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<!-- Resources -->
+<script src="https://cdn.amcharts.com/lib/5/index.js" type="text/javascript"></script>
+<script src="https://cdn.amcharts.com/lib/5/map.js" type="text/javascript"></script>
+<script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js" type="text/javascript"></script>
+<script src="https://cdn.amcharts.com/lib/5/xy.js" type="text/javascript"></script>
+<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js" type="text/javascript"></script>
+
+<script src="https://cdn.amcharts.com/lib/5/percent.js" type="text/javascript"></script>
+<script src="https://cdn.amcharts.com/lib/5/radar.js" type="text/javascript"></script>
+<script src="https://storage.googleapis.com/data-scenarios/WebAPI/CDN/scripts/wc.js" type="text/javascript"></script>
+<script src="https://cdn.amcharts.com/lib/5/wc.js" type="text/javascript"></script>
+<script src="https://cdn.amcharts.com/lib/5/hierarchy.js" type="text/javascript"></script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css"
+  type="text/css" />
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+  type="text/javascript"></script>
+
+
+
+<script src="https://cdn.amcharts.com/lib/5/themes/Responsive.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css" />
+
+<link href="https://cdn.syncfusion.com/ej2/ej2-grids/styles/material.css" rel="stylesheet" />
+
+<link href="https://cdn.syncfusion.com/ej2/25.1.35/ej2-lists/styles/material.css" rel="stylesheet" />
+<link href="https://cdn.syncfusion.com/ej2/25.1.35/ej2-layouts/styles/material.css" rel="stylesheet" />
+<link href="https://cdn.syncfusion.com/ej2/25.1.35/ej2-inputs/styles/material.css" rel="stylesheet" />
+<link href="//cdn.syncfusion.com/ej2/21.2.3/ej2-dropdowns/styles/material.css" rel="stylesheet" type="text/css" />
+
+<script src="https://cdn.syncfusion.com/ej2/25.1.35/dist/ej2.min.js" type="text/javascript"></script>
+
+<script src="//cdn.syncfusion.com/ej2/21.2.3/ej2-data/dist/global/ej2-data.min.js" type="text/javascript"></script>
+<script src="//cdn.syncfusion.com/ej2/21.2.3/ej2-inputs/dist/global/ej2-inputs.min.js" type="text/javascript"></script>
+
+<script src="//cdn.syncfusion.com/ej2/21.2.3/ej2-lists/dist/global/ej2-lists.min.js" type="text/javascript"></script>
+<script src="//cdn.syncfusion.com/ej2/21.2.3/ej2-popups/dist/global/ej2-popups.min.js" type="text/javascript"></script>
+<script src="//cdn.syncfusion.com/ej2/21.2.3/ej2-dropdowns/dist/global/ej2-dropdowns.min.js"
+  type="text/javascript"></script>
+
+<link href="https://cdn.syncfusion.com/ej2/27.1.48/ej2-base/styles/material.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.syncfusion.com/ej2/27.1.48/ej2-buttons/styles/material.css" rel="stylesheet" type="text/css" />
+<!-- Essential JS 2 Carousel's material theme -->
+<link href="https://cdn.syncfusion.com/ej2/27.1.48/ej2-navigations/styles/material.css" rel="stylesheet"
+  type="text/css" />
+<!--style reference from app-->
+<link href="styles.css" rel="stylesheet" />
+<!-- Essential JS 2 Carousel's dependent scripts -->
+<script src="https://cdn.syncfusion.com/ej2/27.1.48/ej2-base/dist/global/ej2-base.min.js"
+  type="text/javascript"></script>
+<script src="https://cdn.syncfusion.com/ej2/27.1.48/ej2-buttons/dist/global/ej2-buttons.min.js"
+  type="text/javascript"></script>
+<!-- Essential JS 2 Carousel's global script -->
+<script src="https://cdn.syncfusion.com/ej2/27.1.48/ej2-navigations/dist/global/ej2-navigations.min.js"
+  type="text/javascript"></script>
+<script src="https://cdn.syncfusion.com/ej2/syncfusion-helper.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" type="text/javascript"></script>
+
+<script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/themes/Responsive.js"></script>
+<link href="https://cdn.syncfusion.com/ej2/material.css" rel="stylesheet" />
+<link href="//cdn.syncfusion.com/ej2/21.2.3/ej2-dropdowns/styles/bootstrap5.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.syncfusion.com/ej2/scripts/ej2-polyfills.min.js"></script>
+<script src="https://cdn.syncfusion.com/ej2/scripts/ej2-scripts.min.js"></script>
+<script src="https://cdn.syncfusion.com/ej2/scripts/ej2-popups.min.js"></script>
+<script src="https://cdn.syncfusion.com/ej2/scripts/ej2-inputs.min.js"></script>
+<script src="https://cdn.syncfusion.com/ej2/scripts/ej2-lists.min.js"></script>
+<script src="https://cdn.syncfusion.com/ej2/scripts/ej2-dropdowns.min.js"></script>
+<script src="https://cdn.syncfusion.com/ej2/scripts/ej2-buttons.min.js"></script>
+
+<body>
+
+  <style>
+    body {
+      font-size: 14px !important;
+      font-weight: 400 !important;
+      line-height: 1 !important;
+
+      overflow-x: hidden;
+    }
+
+    #navbtn:hover,
+    #navbtn:focus,
+    #navbtn {
+      background-color: #337ab7;
+      border: none;
+    }
+
+    .navbar-dark .navbar-nav .nav-link {
+      color: #f9fafb !important;
+    }
+
+
+
+    /* Add this custom CSS to your stylesheet */
+    /* #DescriptionGrid .e-frozencontent .e-headercell::after {
+    display: none !important;
+  } */
+
+    /* Define CSS styles for "Low" risk type */
+    .risk-1 {
+      background-color: rgb(49, 226, 226);
+      /* Green background for Low risk */
+      color: black;
+      /* White text color for better contrast */
+    }
+
+    /* Define CSS styles for "Medium" risk type */
+    .risk-2 {
+      background-color: #2064e2;
+      /* Green background for Low risk */
+      color: white;
+      /* Dark text color for Medium risk */
+    }
+
+    /* Define CSS styles for "High" risk type */
+    .risk-3 {
+      background-color: #ffcc29;
+      /* Yellow background for Medium risk */
+      color: #333;
+      /* White text color for better contrast */
+    }
+
+    /* Define CSS styles for "High" risk type */
+    .risk-4 {
+      background-color: orange;
+      /* Red background for High risk */
+      color: white;
+      /* White text color for better contrast */
+    }
+
+    /* Define CSS styles for "High" risk type */
+    .risk-5 {
+      background-color: #ff4e4e;
+      /* Red background for High risk */
+      color: white;
+      /* White text color for better contrast */
+    }
+
+    .red-cell {
+      background-color: red;
+      color: white;
+      /* You can adjust the text color as needed */
+    }
+
+    #Dialog {
+      text-align: left;
+      /* Center-align content within the dialog */
+      padding: 10px;
+      /* Add some padding for better appearance */
+      border-radius: 5px;
+      border-color: #666;
+      border-style: solid;
+      /* Add rounded corners to the dialog */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      /* Add a subtle shadow */
+    }
+
+    /* Additional styling for table within the dialog */
+    #Dialog table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    /* Style for table rows and cells within the dialog */
+    #Dialog tr {
+      border-bottom: 1px solid #ddd;
+      /* Add a border at the bottom of each row */
+    }
+
+    #Dialog td {
+      padding: 5px;
+      /* Add padding to cells for spacing */
+    }
+
+    .dialog-content table {
+      width: 100%;
+    }
+
+    .dialog-content td {
+      white-space: normal;
+      /* Allow text to wrap to the next line */
+      word-wrap: break-word;
+      /* Allow long words to break and wrap */
+    }
+
+    .header-text {
+      font-weight: bold;
+      font-size: 16px;
+      /* Adjust the font size as needed */
+    }
+
+    /* Define a CSS class for horizontal scrolling */
+    .dialog-content-horizontal-scroll {
+      overflow: auto;
+    }
+
+    /* Add your styles here */
+    .toggle-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .toggle-label {
+      margin-right: 0px;
+      margin-top: 10px;
+    }
+
+    /* .container {
+    padding: 2% 0;
+  } */
+
+    #container {
+      position: relative;
+      height: 100%;
+    }
+
+    .custom-folder-row {
+      background-color: lightblue;
+      /* Set your desired background color */
+    }
+
+    .custom-fileset-row {
+      background-color: lightgreen;
+      /* Set your desired background color */
+    }
+
+    .custom-imageset-row {
+      background-color: lightgoldenrodyellow;
+      /* Set your desired background color */
+    }
+
+    /* Use the default EJ2 TreeGrid folder icon for expand */
+    .custom-expand-icon::before {
+      background-image: url("folderIcon.png");
+      content: "";
+      /* Clear default content */
+      display: inline-block;
+      /* Ensure the element has dimensions */
+      width: 16px;
+      /* Set the width and height based on your icon size */
+      height: 16px;
+      /* content: 'e-folder'; */
+      /* Default EJ2 folder icon for expand */
+      /* font-family: 'e-icons'; */
+      /* Font family for EJ2 icons */
+    }
+
+    /* Use the default EJ2 TreeGrid folder icon for collapse */
+    .custom-collapse-icon::before {
+      background-image: url("folderIcon.png");
+      content: "";
+      /* Clear default content */
+      display: inline-block;
+      /* Ensure the element has dimensions */
+      width: 16px;
+      /* Set the width and height based on your icon size */
+      height: 16px;
+      /* content: 'e-folder'; */
+      /* Default EJ2 folder icon for collapse */
+      /* font-family: 'e-icons'; */
+      /* Font family for EJ2 icons */
+    }
+
+    .e-icons-e-treegridexpand {
+      background-image: url("folderIcon.png");
+      content: "";
+      /* Clear default content */
+      display: inline-block;
+      /* Ensure the element has dimensions */
+      width: 16px;
+      /* Set the width and height based on your icon size */
+      height: 16px;
+      /* content: 'e-folder'; */
+      /* Default EJ2 folder icon for collapse */
+      /* font-family: 'e-icons'; */
+      /* Font family for EJ2 icons */
+    }
+
+    #iconsContainer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    #iconsContainer i {
+      font-size: 24px;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+
+    #labelBelowIcons {
+      text-align: center;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    #form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* label {
+      display: block;
+      margin-bottom: 5px;
+    } */
+
+    label[for^="filesetDef"],
+    label[for^="folderDef"],
+    label[for^="imagesetDef"],
+    label[for^="shareSummary"] {
+      color: #aaa;
+      /* Use your preferred grey color */
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    input[type="radio"] {
+      margin-right: 5px;
+    }
+
+    #filesetFields,
+    #folderFields,
+    #imagesetFields {
+      margin-top: 15px;
+    }
+
+    .tag {
+      display: inline-block;
+      /* background-color: rgb(211, 211, 211); */
+      background-color: rgb(12, 230, 175);
+      /* Replace with your desired background color */
+      color: #000000;
+      /* Replace with your desired text color */
+      margin-left: 10px;
+      /* Adjust the spacing between name and type */
+      font-size: 0.8em;
+      /* Adjust the font size as needed */
+      /* border-radius: 20px; */
+      border-radius: 0px;
+      /* Adjust the border-radius to make it pill-shaped */
+      padding: 5px 10px;
+      /* Adjust the padding as needed */
+    }
+
+    /* Set the icon colors */
+    .e-align-top,
+    .e-delete,
+    .e-delete-1,
+    .e-align-bottom,
+    .e-all {
+      color: blue !important;
+    }
+
+    .e-file-new,
+    .e-sub-total,
+    .e-field-settings {
+      color: green !important;
+    }
+
+    .e-eye,
+    .e-description {
+      color: red !important;
+    }
+
+    /* .e-all {
+    color: yellow !important;
+  } */
+
+    /* .e-align-bottom {
+    color: orange !important;
+  } */
+
+    .e-filter {
+      color: black !important;
+    }
+
+    #DescriptionDropdownContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .tag.optional {
+      display: inline-block;
+
+      background-color: #f9fafb;
+      /* Replace with your desired background color */
+      color: #ff0000;
+      /* Replace with your desired text color */
+      margin-left: 10px;
+      /* Adjust the spacing between name and type */
+      font-size: 0.7em;
+      /* Adjust the font size as needed */
+      border-radius: 20px;
+      /* Adjust the border-radius to make it pill-shaped */
+      padding: 5px 10px;
+      /* Adjust the padding as needed */
+    }
+
+    /* .e-content.e-lib.e-touch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  } */
+
+    .item-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #dqRulesSectionTab .e-tab.e-fill .e-tab-header .e-toolbar-item.e-active .e-tab-wrap {
+      background: #202020;
+      border-radius: 0;
+    }
+
+    #dqRulesSectionTab .e-tab.e-fill .e-tab-header {
+      border-bottom: 2px Solid #202020;
+    }
+
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .circle {
+      font-size: 4em;
+      width: 100px;
+    }
+
+    .border-bottom {
+      width: 70%;
+      padding: 0.5em 0 0.5em 2em;
+    }
+
+    .no-border {
+      border: 0;
+    }
+  </style>
+
+  <style>
+    .aibtn:focus {
+      box-shadow: none;
+    }
+
+    .customtxt {
+      font-size: xx-large !important;
+    }
+
+    .highlight {
+      background: #f6d155;
+      color: dimgrey;
+      font-size: 14px;
+    }
+
+    .searchicon {
+      display: inline-block;
+      width: 35px;
+      height: 35px;
+      top: calc(50% - 20px);
+      border: 2px solid #006e51;
+      border-radius: 40px;
+      z-index: 1;
+    }
+
+    .cbtn {
+      border-radius: 15px;
+      width: 150px;
+    }
+
+    /* .swal2-html-container {
+      text-align: left;
+    } */
+
+    /* body {
+      font-size: 12px;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    } */
+  </style>
+
+  <style>
+    .material #property tr#slider-showon {
+      display: none;
+    }
+
+    /* .slider_container {
+        margin-top: 45px;
+      } */
+
+    .slider_labeltext {
+      padding-bottom: 26px;
+      font-size: 13px;
+      font-weight: 500;
+      /* margin-top: 15px; */
+    }
+
+    .slider-userselect {
+      -webkit-user-select: none;
+      /* Safari 3.1+ */
+      -moz-user-select: none;
+      /* Firefox 2+ */
+      -ms-user-select: none;
+      /* IE 10+ */
+      user-select: none;
+      /* Standard syntax */
+    }
+  </style>
+
+  <style type="text/css">
+    .db-carousel-section .carousel-sample {
+      border: 1px solid #e5e5e5;
+      border-radius: 0.5em;
+      margin: 0 auto 2em;
+      max-width: 800px;
+      height: 485px !important;
+    }
+
+    .db-carousel {
+      background-color: inherit;
+      border-radius: 0.5em;
+    }
+
+    .db-carousel .e-carousel-items .e-carousel-item .card-title,
+    .db-carousel .e-carousel-items .e-carousel-item .card-text {
+      opacity: 0;
+      text-align: justify;
+      transform: translateY(20px);
+    }
+
+    .db-carousel .e-carousel-items .e-carousel-item.e-active .card-title,
+    .db-carousel .e-carousel-items .e-carousel-item.e-active .card-text {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+
+    .db-carousel .e-carousel-items .e-carousel-item .card-title {
+      font-size: 20px;
+      transition: transform 0.4s ease 0.2s;
+    }
+
+    .db-carousel .e-carousel-items .e-carousel-item .card-text {
+      font-size: 14px;
+      transition: transform 0.4s ease 0.2s;
+    }
+
+    .db-carousel .e-carousel-indicators {
+      height: 3em;
+    }
+
+    .db-carousel .e-carousel-indicators.e-default .e-indicator-bar .e-indicator div {
+      background-color: #e7e7e7;
+    }
+
+    @media screen and (max-width: 480px) {
+      .db-carousel-section .carousel-sample {
+        width: 100%;
+        height: 485px !important;
+      }
+    }
+
+    .e-previous-icon,
+    .e-next-icon {
+      color: black !important;
+    }
+  </style>
+
+  <style type="text/css">
+    /* @keyframes animtext {
+      from {
+        width: 0;
+        transition: all 2s ease-in-out;
+      }
+    } */
+    .ptdb-carousel-section .ptcarousel-sample {
+      /* border: 1px solid #e5e5e5; */
+      /* border-radius: 0.5em; */
+      /* margin: 0 auto 2em; */
+      max-width: 1400px;
+      height: 484px !important;
+    }
+
+    .ptdb-carousel {
+      background-color: inherit;
+      border-radius: 0.5em;
+    }
+
+    .ptdb-carousel .e-carousel-items .e-carousel-item .card-title,
+    .ptdb-carousel .e-carousel-items .e-carousel-item .card-text {
+      opacity: 0;
+      text-align: justify;
+      transform: translateY(20px);
+    }
+
+    .ptdb-carousel .e-carousel-items .e-carousel-item.e-active .card-title,
+    .ptdb-carousel .e-carousel-items .e-carousel-item.e-active .card-text {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+
+    .ptdb-carousel .e-carousel-items .e-carousel-item .card-title {
+      font-size: 20px;
+      transition: transform 0.4s ease 0.2s;
+    }
+
+    .ptdb-carousel .e-carousel-items .e-carousel-item .card-text {
+      font-size: 14px;
+      transition: transform 0.4s ease 0.2s;
+    }
+
+    .ptdb-carousel .e-carousel-indicators {
+      height: 3em;
+    }
+
+    .ptdb-carousel .e-carousel-indicators.e-default .e-indicator-bar .e-indicator div {
+      background-color: #e7e7e7;
+    }
+
+    .e-previous-icon,
+    .e-next-icon {
+      color: black !important;
+    }
+  </style>
+
+  <style>
+    /* Tile view card customization */
+
+
+
+    .card-control-section.tile_layout .e-card-layout {
+      margin: auto;
+      /* max-width: 190px; */
+    }
+
+    #source_link {
+      float: right;
+      margin-right: 10px;
+    }
+
+    /* @media screen and (max-width: 768px) {
+      #source_link {
+        margin-right: 0px;
+      }
+    }
+
+    @media (min-width: 960px) {
+      .tile_layout.card-control-section .col-xs-6.col-sm-6.col-lg-6.col-md-6 {
+        width: 25%;
+      }
+      .card-control-section.tile_layout .e-card-layout {
+        max-width: 850px;
+      }
+    }
+
+    @media (min-width: 540px) {
+      .tile_layout.card-control-section .row.filter {
+        display: flex;
+      }
+      .tile_layout.card-control-section .e-card .e-card-content {
+        min-height: 60px;
+        max-height: 60px;
+      }
+    }
+
+    @media (max-width: 960px) and (min-width: 540px) {
+      .tile_layout.card-control-section .col-xs-6.col-sm-6.col-lg-6.col-md-6 {
+        width: 50%;
+      }
+      .card-control-section.tile_layout .e-card-layout {
+        max-width: 410px;
+      }
+    } */
+  </style>
+
+  <div class="row">
+    <div class="col-md-11"><ul id="breadcrumb"></ul></div>
+    <div class="col-md-1"><i class="bi bi-info-circle" style="float: right;
+      margin-right: 20px;
+      margin-top: 10px;
+      font-size: x-large;
+      color: deepskyblue;cursor: pointer;" onclick="loadArchitectureModal('skagent.png','Semantic Kernel Agentic Framework with Function calling')"></i>
+    </div>
+  </div>
+  <div
+    style="margin-left: 15px; margin-right: 15px; background-color: #ffffff; font-family: 'Segoe UI', sans-serif; overflow: hidden;">
+
+    <!-- Header -->
+    <h3 style="text-align: center; margin-bottom: 25px; color: #3f51b5; font-weight: 600;">
+      Listed files of patient :  AmyCripto
+    </h3>
+
+    <!-- File Dropdown -->
+    <div style="display: flex; align-items: flex-end; gap: 12px; margin-bottom: 20px;">
+      <div style="flex: 1;">
+        <label for="file-dropdown" style="font-size: 15px; color: #333; display: block; margin-bottom: 8px;">
+          <b>Select a File to continue:</b>
+        </label>
+        <input type="text" id="file-dropdown" style="width: 100%; height: 38px;" />
+      </div>
+    </div>
+
+    <div id="file-preview-container" style="margin-top: 1rem;"></div>
+
+
+    <script type="text/x-template" id="patientTemplate">
+      <div class="row">
+        <!-- File Preview (25%) -->
+        <div class="col-md-3" style="height: auto;">
+          <iframe src='${FilePath}' style="height: 100%; width: 100%;"></iframe>
+        </div>
+    
+        <!-- File Info + Fetch Topics (50%) -->
+        <div class="col-md-6" style="height: 500px; overflow-y: auto;">
+          <h5>${FileName}</h5>
+          <button class="btn btn-outline-primary mt-3" id="fetchTopic_${ID}" onclick="fetchTopic('${FileName}', '${ID}')">
+            Fetch Topics
+          </button>
+        
+          <div id="topic_items_${ID}" class="mt-2"></div>
+          <div style="display:flex">
+            <button class="btn btn-success mt-3" id="makeSummary_${ID}" style="display:none" onclick="makeSummary('${ID}', '${FileName}')" disabled>
+              Generate Summary
+            </button>
+            <button class="btn btn-success mt-3 mx-3" id="includeFileSummary_${ID}" style="display:none" onclick="includeFileSummary('${ID}', '${FileName}')" disabled>
+              Include Summary
+            </button>
+          </div>
+          <div id="summaryGen_${ID}" class="mt-2"></div>
+        </div>
+    
+        <!-- Query Section (25%) -->
+        <div class="col-md-3" style="height: 500px; overflow-y: auto;">
+          <div id="Tab_${ID}"></div>
+          <div id="SubTab_${ID}_1" style="font-size: 15px;">
+            <div class="row">
+              <textarea class="form-control" 
+                        placeholder="Enter your query" 
+                        id="userQuery_${ID}" 
+                        style="height: 80px; width: 80%; resize: none; border-radius: 6px;"></textarea>
+            </div>
+            <div class="row">
+              <button class="btn btn-sm btn-outline-info mt-2 px-3 py-1" 
+                      id="queryDoc_${ID}" data-id="${ID}"
+                      onclick="getResponse(this,'${FileName}')"
+                      style="font-size: 13px; border-radius: 5px; width: 80%;">
+                Get Response
+              </button>
+              <button class="btn btn-sm btn-info my-3" type="button" id="queryDocLoading_${ID}" style="display:none;float:right">
+                <span class="spinner-border spinner-border-sm" style="margin-right:5px width: 80%;" aria-hidden="true"></span>
+                <span role="status"> Processing...</span>
+              </button>
+            </div>
+            <div class="row">
+              <div id="fileQueryAnswer_${ID}" style="font-size:15px; text-align: left;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </script>
+
+
+    <script>
+
+      const urlParams = new URLSearchParams(window.location.search);
+      var selectedMultiApp = "";
+      selectedMultiApp = localStorage.getItem('currentTenant')
+      let elementsFull = document.getElementsByClassName("loginUserFullName");
+      let popupText = "";
+      let stages = 6;
+      let stagesData = [];
+      var selectedPatient = "{{ticketId}}";
+      var selectedContent = "";
+      var summaryObj = "";
+
+      console.log(selectedMultiApp)
+      debugger
+      if (selectedMultiApp == "Panacea") {
+        $("#navheadertext")[0].innerText = "Spectra - Entity Attachments"
+        stagesData = [
+          "Extracting Patient Data <br/>",
+          "Invoking <b>Autogen Multimodal Agents</b> to extract text from PDFs including Patient Reports, video/audio consultations etc.,",
+          "Converting multi-language to english with Gemini AI",
+          "Normalizing and summarizing Patient information with Gemini AI",
+          "Creating vector database using Google Generative AI embeddings",
+          "Diagnosing and Recommending general treatment with Patient extracted symptoms",
+        ];
+      }
+      else if (selectedMultiApp == "Sentinel") {
+        $("#navheadertext")[0].innerText = "Spectra - Entity Attachments"
+        stagesData = [
+          "Extracting documents Data <br/>",
+          "Invoking <b>Autogen Multimodal Agents</b> to extract text from PDFs including Cybesecurity documents, policies, video/audio data etc.,",
+          "Converting multi-language to english with Gemini AI",
+          "Normalizing and summarizing information with Gemini AI",
+          "Creating vector database using Google Generative AI embeddings",
+          "Identifying domain specialization with extracted information",
+        ];
+      }
+      else if (selectedMultiApp == "Spectra") {
+        $("#navheadertext")[0].innerText = "Spectra - Entity Attachments"
+        stagesData = [
+          "Extracting documents Data <br/>",
+          "Invoking <b>Autogen Multimodal Agents</b> to extract text from attachments or tickets including pdfs,images, video/audio data etc.,",
+          "Converting multi-language to english with Gemini AI",
+          "Normalizing and summarizing information with Gemini AI",
+          "Creating vector database using Google Generative AI embeddings",
+          "Identifying domain specialization with extracted information",
+        ];
+      }
+
+      var items = [
+        {
+          iconCss: 'e-icons e-home',
+          url: "/",
+        },
+        {
+          id: 'breadcrumb_spectra',
+          text: "Spectra",
+          url: "/",
+
+        },
+        {
+          id: 'breadcrumb_my_entities',
+          text: "My Entities",
+          url: "/EntitiesList",
+        },
+        {
+          id: 'breadcrumb_my_entity_attachments',
+          text: "EntityAttachmentSummaryAction",
+          url: "/EntityAttachmentSummaryAction?app=" + selectedMultiApp + "id=" + selectedPatient,
+        },
+        {
+          id: 'breadcrumb_ticket_id',
+          text: selectedPatient,
+          // url: "/MasterHeader#TasksScheduler",
+        }
+      ];
+
+      new ej.navigations.Breadcrumb({
+        items: items,
+        enableNavigation: true
+      }, '#breadcrumb');
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // document.getElementById("ticket-id").innerText = selectedPatient;
+
+        let paramsObj = {
+          userName: userName,
+          wspName: "",
+          selectedPatient: selectedPatient
+        };
+
+        let url = "/get_patient_files_list?dbParams=" + JSON.stringify(paramsObj);
+
+        fetch(url)
+          .then(response => response.json())
+          .then(data => {
+            console.log(data)
+            if (data.status === "success") {
+              const fileList = data.files.map(file => ({
+                text: file,
+                value: file
+              }));
+
+              const dataMap = data.data_on_file;
+
+              new ej.dropdowns.DropDownList({
+                dataSource: fileList,
+                fields: { text: 'text', value: 'value' },
+                placeholder: 'Choose a file',
+                popupHeight: '200px',
+                cssClass: 'e-outline',
+                width: '100%',
+                change: function (e) {
+                  summaryObj = "";
+                  const selectedFile = e.itemData.value;
+                  const fileExt = selectedFile.toLowerCase();
+                  const container = document.getElementById("file-preview-container");
+
+                  container.innerHTML = "";
+
+                  const fileUrl = `/serve_file?fileName=${encodeURIComponent(selectedFile)}&folderName=${encodeURIComponent(selectedPatient)}&userName=${encodeURIComponent(userName)}`;
+                  const content = data.data_on_file[selectedFile];
+                  const uniqueId = selectedFile.replace(/\W/g, "_");
+
+                  const template = document.getElementById("patientTemplate").innerHTML;
+                  const interpolated = template
+                    .replace(/\${UserName}/g, userName)
+                    .replace(/\${FolderName}/g, selectedPatient)
+                    .replace(/\${FileName}/g, selectedFile)
+                    .replace(/\${FilePath}/g, fileUrl)  // DO NOT ENCODE HERE for iframe src
+                    .replace(/\${ID}/g, uniqueId);
+
+                  container.innerHTML = interpolated;
+
+                  // Post-load logic to safely show content inside the iframe
+                  setTimeout(() => {
+                    const iframe = container.querySelector("iframe");
+                    if (!iframe) return;
+
+                    if (fileExt.match(/\.(pdf)$/)) {
+                      // Let browser render PDF naturally
+                      iframe.src = fileUrl;
+
+                    } else if (fileExt.match(/\.(png|jpg|jpeg|gif|bmp|webp)$/)) {
+                      // Render images directly inside iframe
+                      const doc = iframe.contentWindow.document;
+                      doc.open();
+                      doc.write(`<body style="margin:0"><img src="${fileUrl}" style="max-width:100%;height:auto;" /></body>`);
+                      doc.close();
+
+                    } else if (fileExt.match(/\.(mp4|webm|ogg)$/)) {
+                      const doc = iframe.contentWindow.document;
+                      doc.open();
+                      doc.write(`<body style="margin:0"><video src="${fileUrl}" controls style="width:100%;height:auto;"></video></body>`);
+                      doc.close();
+
+                    } else if (fileExt.match(/\.(mp3|wav|aac)$/)) {
+                      const doc = iframe.contentWindow.document;
+                      doc.open();
+                      doc.write(`<body style="margin:0"><audio controls src="${fileUrl}" style="width:100%"></audio></body>`);
+                      doc.close();
+
+                    } else if (content === "CSV preview is not available.") {
+                      const doc = iframe.contentWindow.document;
+                      doc.open();
+                      doc.write(`<body><p style="color: orange;">CSV preview is not available.</p></body>`);
+                      doc.close();
+
+                    } else if (content && typeof content === "string") {
+                      const doc = iframe.contentWindow.document;
+                      doc.open();
+                      doc.write(`<pre style="white-space: pre-wrap; font-size: 14px; padding: 1rem;">${content}</pre>`);
+                      doc.close();
+
+                    } else {
+                      const doc = iframe.contentWindow.document;
+                      doc.open();
+                      doc.write(`<p style="color: gray;">No preview available for this file type.</p>`);
+                      doc.close();
+                    }
+                  }, 0);
+                }
+
+              }).appendTo('#file-dropdown');
+            }
+
+            else {
+              alert("Error loading files: " + data.message);
+            }
+
+          });
+      });
+
+      var aiFilePath = "";
+      var userName = localStorage.getItem("UserName");
+      // var currentWsp = localStorage.getItem("CurrentWsp");
+      var patientsList = [];
+
+      // Handler for fetch topic
+      function fetchTopic(fileName, id) {
+        console.log("Fetching topic for:", fileName);
+
+        Swal.fire({
+          title: "Fetching topics...",
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          }
+        });
+
+        const paramsObj = {
+          userName: userName,
+          wspName: "",
+          selectedPatient: selectedPatient,
+          selectedFileName: fileName
+        };
+
+        const url = "/fetch_topic?dbParams=" + encodeURIComponent(JSON.stringify(paramsObj));
+
+        fetch(url)
+          .then(response => response.json())
+          .then(data => {
+            Swal.close();
+
+            const topicContainer = document.getElementById(`topic_items_${id}`);
+            topicContainer.innerHTML = ""; // Clear old items if any
+
+            if (data.status === "success") {
+              const topics = data.topics;
+
+              if (Array.isArray(topics) && topics.length > 0) {
+                topics.forEach((topic, index) => {
+                  const checkboxId = `topic_checkbox_${id}_${index}`;
+                  const checkboxDiv = document.createElement("div");
+
+                  checkboxDiv.innerHTML = `
+              <input type="checkbox" id="${checkboxId}" name="topic_${id}" value="${topic}">
+              <label for="${checkboxId}"> ${topic}</label>
+            `;
+
+                  topicContainer.appendChild(checkboxDiv);
+                });
+
+                // Enable the "Make Summary" button
+                const summaryButton = document.getElementById(`makeSummary_${id}`);
+                if (summaryButton) {
+                  summaryButton.style.display = "block";
+                  summaryButton.disabled = false;
+                }
+
+                const includeButton = document.getElementById(`includeFileSummary_${id}`);
+                if (includeButton) {
+                  includeButton.style.display = "block";
+                  includeButton.disabled = false;
+                }
+              } else {
+                topicContainer.innerHTML = "<div class='text-danger'>No topics returned.</div>";
+              }
+            } else {
+              topicContainer.innerHTML = `<div class='text-danger'>${data.message || "Failed to fetch topics."}</div>`;
+            }
+          })
+          .catch(error => {
+            Swal.close();
+            console.error("Fetch topic error:", error);
+            Swal.fire("Error", "Failed to fetch topics", "error");
+          });
+      }
+
+      function makeSummary(id, fileName) {
+        const checkboxes = document.querySelectorAll(`input[name="topic_${id}"]:checked`);
+        const selectedTopics = Array.from(checkboxes).map(cb => cb.value);
+
+        if (selectedTopics.length === 0) {
+          Swal.fire("No topics selected", "Please select at least one topic to summarize.", "warning");
+          return;
+        }
+
+        const paramsObj = {
+          userName: userName,
+          selectedPatient: selectedPatient,
+          selectedFileName: fileName,
+          selectedTopics: selectedTopics
+        };
+
+        Swal.fire({
+          title: "Generating summary...",
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          }
+        });
+
+        fetch("/make_summary_with_selected_topics", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(paramsObj)
+        })
+          .then(response => response.json())
+          .then(data => {
+            Swal.close();
+            if (data.status === "success") {
+              Swal.fire("Summary generated successfully.", "success");
+              summaryObj = data.summary;
+              document.getElementById("summaryGen_" + id).innerHTML = converter.makeHtml(data.summary);
+            } else {
+              Swal.fire("Error", data.message || "Failed to generate summary.", "error");
+              document.getElementById("summaryGen_" + id).innerHTML = "Failed to generate summary.";
+            }
+          })
+          .catch(error => {
+            Swal.close();
+            console.error("Summary error:", error);
+            Swal.fire("Error", "Request failed", "error");
+          });
+      }
+
+      function includeFileSummary(id, fileName) {
+        let summaryData = summaryObj;
+
+        const paramsObj = {
+          userName: userName,
+          selectedPatient: selectedPatient,
+          selectedFileName: fileName,
+          summaryData: summaryData
+        };
+
+
+
+        fetch("/save_summary_with_selected_topics", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(paramsObj)
+        })
+          .then(response => response.json())
+          .then(data => {
+            Swal.close();
+            if (data.status === "success") {
+              Swal.fire(data.message || "Summary saved.", "success");
+              //document.getElementById("summaryGen_" + id).innerHTML = converter.makeHtml(data.summary);
+            } else {
+              Swal.fire("Error", data.message || "Failed to save summary.", "error");
+              //document.getElementById("summaryGen_" + id).innerHTML = "Failed to generate summary.";
+            }
+          })
+          .catch(error => {
+            Swal.close();
+            console.error("Summary error:", error);
+            Swal.fire("Error", "Request failed", "error");
+          });
+      }
+
+      function getResponse(args, filename) {
+        console.log(args)
+        let id = args.getAttribute("data-id");
+        document.getElementById("queryDoc_" + id).style.display = "none";
+        document.getElementById("queryDocLoading_" + id).style.display = "block";
+        // let reqPt = patientsList.filter((x) => x.ID == id)[0];
+        let userQuery = document.getElementById("userQuery_" + id).value;
+        // Swal.fire({ title: "fetching response..please wait" });
+        // Swal.showLoading();
+        // setTimeout(async () => {
+        const paramsObj = {
+          userName: userName,
+          wspName: "",
+          selectedPatient: selectedPatient,
+          selectedFileName: filename,
+          userQuery: userQuery
+        };
+
+        const url = "/gemini_query_file_question?dbParams=" + encodeURIComponent(JSON.stringify(paramsObj));
+        fetch(url)
+          .then((response) => response.text())
+          .then((data) => {
+            console.log(data)
+            // Swal.close();
+            let reviewTxt = converter.makeHtml(data);
+            $("#fileQueryAnswer_" + id)[0].innerHTML = reviewTxt;
+            document.getElementById("userQuery_" + id).value = "";
+            document.getElementById("queryDoc_" + id).style.display = "block";
+            document.getElementById("queryDocLoading_" + id).style.display =
+              "none";
+          });
+        // }, 100);
+      }
+
+      var converter = new showdown.Converter({ extensions: ["table"] });
+      function sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      }
+      var selectedDomain = "";
+      // let summaryObj = null;
+      // let selectedFilesForLLM = [];
+
+      let selectedFolder = "";
+
+      var ptData = [];
+
+      function loadWsp() {
+        loadPatients();
+      }
+
+      function getSections() {
+        setTimeout(async () => {
+          var paramsObj = {};
+          paramsObj.selectedPatient = selectedPatient;
+          paramsObj.userName = userName;
+          let url = "/gemini_get_sections?dbParams=" + JSON.stringify(paramsObj);
+          fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+              console.log("Sections", data);
+              sectionsTreeData = [];
+              let si = 1;
+              data.forEach((d) => {
+                sd = {};
+                sd.id = si;
+                sd.name = d.fileName.replace(selectedPatient.trim() + "/", "");
+                sd.hasChild = true;
+                sd.expanded = false;
+                sectionsTreeData.push(sd);
+                si++;
+                d.sections.forEach((s) => {
+                  sds = {};
+                  sds.id = si;
+                  sds.name = s;
+                  sds.pid = sd.id;
+                  sds.hasChild = false;
+                  sectionsTreeData.push(sds);
+                });
+              });
+              var sectionsTreeObj = new ej.navigations.TreeView({
+                fields: {
+                  dataSource: sectionsTreeData,
+                  id: "id",
+                  parentID: "pid",
+                  text: "name",
+                  hasChildren: "hasChild",
+                },
+                showCheckBox: true,
+                autoCheck: true,
+              });
+              $("#sectionsTree").html("");
+              sectionsTreeObj.appendTo("#sectionsTree");
+              Swal.close();
+            });
+          let stages = 6;
+
+          let updatedHtml = `<li>${stagesData[0]}</li>`;
+
+          Swal.fire({
+            html: `<div class="row" style="text-align:left;font-size:15px;"><div class="col-md-1"><img src="static/CDN/images/Google_Bard_animated.gif" style="width:32px"/></div><div class="col-md-11"><ol type="1" style="margin-left:-14px">${updatedHtml}</ol></div></div>`,
+            showConfirmButton: false,
+            allowOutsideClick: false,
+          });
+          await sleep(3000);
+
+          for (let i = 1; i < stages; i++) {
+            // Swal.close();
+            updatedHtml += `<li>${stagesData[i]}</li>`;
+            Swal.update({
+              html: `<div class="row" style="text-align:left;font-size:15px;"><div class="col-md-1"><img src="static/CDN/images/Google_Bard_animated.gif" style="width:32px"/></div><div class="col-md-11"><ol type="1" style="margin-left:-14px">${updatedHtml}</ol></div></div>`,
+              showConfirmButton: false,
+              allowOutsideClick: false,
+            });
+            // Swal.showLoading();
+            await sleep(3000);
+          }
+        }, 500);
+      }
+
+      // function IdentifyDomain() {
+      //   Swal.fire({
+      //     html: `<div class="row" style="text-align:left;font-size:15px;"><div class="col-md-1"><img src="static/CDN/images/Google_Bard_animated.gif" style="width:32px"/></div><div class="col-md-11">Identifying domain..please wait</div></div>`,
+      //     showConfirmButton: false,
+      //     allowOutsideClick: false,
+      //   });
+      //   setTimeout(async () => {
+      //     let paramsObj = {};
+      //     paramsObj.selectedPatient = selectedPatient;
+      //     paramsObj.userName = userName;
+      //     paramsObj.wspName = "";
+      //     let url =
+      //       "/find_medical_department?dbParams=" + JSON.stringify(paramsObj);
+      //     fetch(url)
+      //       .then((response) => response.text())
+      //       .then(async (data) => {
+      //         // $("#ptDomain")[0].innerText = data.Domain;
+      //         console.log(data)
+      //         let deptData = JSON.parse(data.match(/\{([^]+)\}/g)[0]);
+      //         $("#ptDomainName")[0].innerText = deptData.Department;
+      //         selectedDomain = deptData.Department;
+
+      //         $("#domainPart")[0].style.display = "";
+      //         // $("#domainiden").html("Analyse with Panacea");
+      //         Swal.close();
+      //       });
+
+      //   }, 500);
+      // }
+
+      function getFilesListIterative(filesList) {
+        let files = [];
+        filesList.forEach((f) => {
+          // if (f.name.endsWith(".pdf")) {
+          let fileLocal = {};
+          fileLocal.name = f.name;
+          fileLocal.absPath = f.absPath.replace("\\", "/");
+          files.push(fileLocal);
+          // }
+        });
+        return files;
+      }
+
+
+    </script>
+</body>
+
+{% endblock %}
